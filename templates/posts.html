@@ -1,13 +1,8 @@
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wild Swimmer</title>
-</head>
-<body>
-    <h1>All blog posts</h1>
-    {% for category in categories %}
-        {{ category.category_name }}<br>
-    {% endfor %}
-</body>
-</html>
+{% extends "base.html" %}
+
+<h1>All blog posts</h1>
+{%block content %}
+{% for category in categories %}
+    {{ category.category_name }}<br>
+{% endfor %}
+{% endblock %}
