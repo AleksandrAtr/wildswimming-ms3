@@ -1,6 +1,6 @@
 # **Project Overview**
-WildSwimmer is a blogging platform designed for outdoor swimmers. 
-The community-driven platform is designed for enthusiasts who revel in the thrill of wild waters. It allows sharing adventures and connecting with fellow swimmers worldwide. WildSwimmer isn't just about swimming; it's a space to learn, prioritize safety, and champion environmental stewardship.
+WildWaterSwimHub is a blogging platform designed for outdoor swimmers. 
+The community-driven platform is designed for enthusiasts who revel in the thrill of wild waters. It allows sharing adventures and connecting with fellow swimmers worldwide. WildWaterSwimHub isn't just about swimming; it's a space to learn, prioritize safety, and champion environmental stewardship.
 <br>
  
 ## **Table of contents**
