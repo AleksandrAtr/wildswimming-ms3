@@ -24,11 +24,11 @@
                 <ul class="right hide-on-med-and-down">
                     <li><a href="{{ url_for('get_posts') }}">Home</a></li>
                     <li><a href="#">Profile</a></li>
-                    <li><a href="#">Write post</a></li>
+                    <li><a href="#">Post</a></li>
                     <li><a href="#">Contact</a></li>
                     <li><a href="#">Login</a></li>
                     <li><a href="#">Logout</a></li>
-                    <li><a href="#">Register</a></li>
+                    <li><a href="{{ url_for('get_register') }}">Register</a></li>
 
                 </ul>
             </div>
@@ -37,14 +37,13 @@
         <ul class="sidenav" id="mobile-demo">
             <li><a href="{{ url_for('get_posts') }}">Home</a></li>
             <li><a href="#">Profile</a></li>
-            <li><a href="#">Write post</a></li>
+            <li><a href="#">Post</a></li>
             <li><a href="#">Contact</a></li>
             <li><a href="#">Login</a></li>
             <li><a href="#">Logout</a></li>
-            <li><a href="#">Register</a></li>
+            <li><a href="{{ url_for('get_register') }}">Register</a></li>
         </ul>
     </header>
-    <h1>I am base template</h1>
     <main>
         {% block content %}
         {% endblock %}

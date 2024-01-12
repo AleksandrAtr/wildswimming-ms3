@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h3 class="center-align">Register</h3>
+
+<div class="row">
+    <form class="col s12 m6 offset-m3" method="POST" action="{{ url_for('get_register') }}">
+        <div class="card-panel">
+            <!-- username -->
+            <div class="row">
+                <div class="input-field col s12">
+                    <i class="fa-solid fa-user prefix"></i>
+                    <input id="username" name="username" type="text" minlength="8" maxlength="15"
+                        pattern="^[a-zA-Z0-9]{5,15}$" class="validate" required>
+                    <label for="username">Username</label>
+                </div>
+            </div>
+            <!-- passowrd  -->
+            <div class="row">
+                <div class="input-field col s12">
+                    <i class="fa-solid fa-lock prefix"></i>
+                    <input id="password" name="password" type="password" minlength="8" maxlength="15"
+                        pattern="^[a-zA-Z0-9]{5,15}$" class="validate" required>
+                    <label for="password">Password</label>
+                </div>
+            </div>
+
+        </div>
+        <!-- register -->
+        <button type="submit" class="col s12 btn-large light-blue darken-4 text-shadow">
+            Register <i class="fa-solid fa-right-to-bracket"></i>
+        </button>
+</div>
+
+{% endblock %}
