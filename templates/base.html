@@ -44,6 +44,19 @@
             <li><a href="{{ url_for('get_register') }}">Register</a></li>
         </ul>
     </header>
+
+    <section class="flash-message">
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <ul class="flashes">
+                    {% for message in messages %}
+                        <li>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
+    </section>
+
     <main>
         {% block content %}
         {% endblock %}

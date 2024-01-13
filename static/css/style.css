@@ -7,3 +7,9 @@
     width: 150px;
 }
 
+.flash-message {
+    background-color: cornflowerblue;
+    color: black;
+    font-size: 2rem;
+    text-align: center;
+}
