@@ -29,25 +29,43 @@ def get_posts():
 @app.route("/get_register", methods = ["GET","POST"])
 def get_register():
     if request.method == "POST":
-        # check if username is already exists
-        existing_username = mongo.db.users.find_one(
-            {"username": request.form.get(("username").lower())})
-        print(existing_username)
-        if existing_username:
+        username = request.form.get('username').lower()
+        password = request.form.get('password')
+        
+        user = mongo.db.users.find_one({'username': username})
+        
+        if user:
             flash("User already exists, choose another one")
             return redirect(url_for("get_register"))
         
         register = {
-            "username": request.form.get(("username").lower()),
-            "password": generate_password_hash(request.form.get("password"))
+            "username": username,
+            "password": generate_password_hash(password)
         }
         mongo.db.users.insert_one(register)
         
         # set a new user to the session cookie
-        session["user"] = request.form.get(("username").lower())
+        session["user"] = username
         flash("Registration Successful!")
     
     return render_template("register.html")
+
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == "POST":
+        username = request.form.get('username').lower()
+        password = request.form.get('password')
+
+        user = mongo.db.users.find_one({'username': username})
+
+        if user and check_password_hash(user['password'], password):
+            flash('Login successful!', 'success')
+            return redirect(url_for('get_posts'))
+        else:
+            flash('Invalid username or password. Please try again.', 'error')
+
+    return render_template("login.html")
 
     
 if __name__ == "__main__":

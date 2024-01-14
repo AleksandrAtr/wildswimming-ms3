@@ -24,12 +24,21 @@
                     <label for="password">Password</label>
                 </div>
             </div>
-
         </div>
         <!-- register -->
         <button type="submit" class="col s12 btn-large light-blue darken-4 text-shadow">
             Register <i class="fa-solid fa-right-to-bracket"></i>
         </button>
+    </form>
+</div>
+
+<div class="row">
+    <div class="col s12">
+        <p class="center-align">
+            Already registred?
+            <a href="{{ url_for('login') }}" class="light-blue-text text-darken-4">Log In</a>
+        </p>
+    </div>
 </div>
 
 {% endblock %}
