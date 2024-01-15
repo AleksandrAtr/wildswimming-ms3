@@ -43,11 +43,11 @@ def get_register():
             "password": generate_password_hash(password)
         }
         mongo.db.users.insert_one(register)
-        
+
         # set a new user to the session cookie
         session["user"] = username
         flash("Registration Successful!")
-    
+
     return render_template("register.html")
 
 
@@ -57,17 +57,28 @@ def login():
         username = request.form.get('username').lower()
         password = request.form.get('password')
 
-        user = mongo.db.users.find_one({'username': username})
+        user_id = mongo.db.users.find_one({'username': username})
 
-        if user and check_password_hash(user['password'], password):
+        if user_id and check_password_hash(user_id['password'], password):
             flash('Login successful!', 'success')
-            return redirect(url_for('get_posts'))
+            session["user"] = request.form.get("username").lower()
+            redirect(url_for("profile", username=session["user"].capitalize()))
         else:
             flash('Invalid username or password. Please try again.', 'error')
 
     return render_template("login.html")
 
-    
+
+@app.route("/profile/<username>", methods=["GET", "POST"])
+def profile(username):
+    user_id = mongo.db.users.find_one(
+        {"username": session["user"]})["username"]
+    if session["user"]:
+        return render_template('profile.html', username=user_id.capitalize())
+
+    return redirect(url_for('login'))
+
+
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),
             port=int(os.environ.get("PORT")),

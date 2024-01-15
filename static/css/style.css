@@ -14,3 +14,10 @@
     text-align: center;
 }
 
+.success {
+    background-color: rgba(173, 237, 100, 0.856);
+}
+
+.error {
+    background-color: rgba(237, 116, 100, 0.925);
+}
