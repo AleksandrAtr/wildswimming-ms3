@@ -22,8 +22,16 @@ mongo = PyMongo(app)
 @app.route("/")
 @app.route("/get_posts")
 def get_posts():
-    posts = mongo.db.posts.find()
-    return render_template("posts.html", posts=posts)
+    posts = list(mongo.db.posts.find())
+    image_url = url_for('static', filename='images/test.jpg')
+    return render_template("blog.html", posts=posts, image_url=image_url)
+
+@app.route("/create_post")
+def create_post():
+    if "user" in session:
+        return render_template("create_post.html")
+    flash("Log in to post", "error")
+    return redirect(url_for("login"))
 
 
 @app.route("/get_register", methods = ["GET","POST"])
