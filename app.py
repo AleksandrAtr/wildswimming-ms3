@@ -35,7 +35,7 @@ def get_register():
         user = mongo.db.users.find_one({'username': username})
         
         if user:
-            flash("User already exists, choose another one")
+            flash("User already exists, choose another one", "error")
             return redirect(url_for("get_register"))
         
         register = {
@@ -46,7 +46,8 @@ def get_register():
 
         # set a new user to the session cookie
         session["user"] = username
-        flash("Registration Successful!")
+        flash("Registration Successful!", "success")
+        return redirect(url_for("profile"))
 
     return render_template("register.html")
 
@@ -54,6 +55,7 @@ def get_register():
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == "POST":
+        # Assign form inputs to new variables
         username = request.form.get('username').lower()
         password = request.form.get('password')
 
@@ -62,20 +64,29 @@ def login():
         if user_id and check_password_hash(user_id['password'], password):
             flash('Login successful!', 'success')
             session["user"] = request.form.get("username").lower()
-            redirect(url_for("profile", username=session["user"].capitalize()))
+            return redirect(url_for("profile", username=session["user"].capitalize()))
         else:
             flash('Invalid username or password. Please try again.', 'error')
-
     return render_template("login.html")
 
 
-@app.route("/profile/<username>", methods=["GET", "POST"])
-def profile(username):
-    user_id = mongo.db.users.find_one(
-        {"username": session["user"]})["username"]
-    if session["user"]:
+@app.route("/profile", methods=["GET", "POST"])
+def profile():
+    # Check if the 'user' is in the session to direct to profile page
+    if "user" in session:
+        user_id = mongo.db.users.find_one(
+            {"username": session["user"]})["username"]
         return render_template('profile.html', username=user_id.capitalize())
 
+    return redirect(url_for('login'))
+
+
+@app.route("/logout")
+def logout():
+    # Clear the 'user' key from the session to log out the user
+    session.pop('user', None)
+    flash('You have logged out', 'success')
+    
     return redirect(url_for('login'))
 
 

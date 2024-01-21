@@ -13,38 +13,41 @@
     {% endblock %}
     <title>Wild Swimming</title>
 </head>
-
 <body>
     <header>
         <nav>
             <!-- browser nav -->
             <div class="nav-wrapper blue-grey darken-3">
-                <a href="#!" class="brand-logo">Brand logo</a>
+                <a href="#!" class="brand-logo">Wild Swimmer</a>
                 <a href="#" data-target="mobile-demo" class="sidenav-trigger right"><i class="fas fa-bars"></i></a>
                 <ul class="right hide-on-med-and-down">
                     <li><a href="{{ url_for('get_posts') }}">Home</a></li>
-                    <li><a href="{{ url_for('profile', username=session['user']) }}">Profile</a></li>
-                    <li><a href="#">Post</a></li>
-                    <li><a href="#">Contact</a></li>
-                    <li><a href="{{ url_for('login') }}">Login</a></li>
-                    <li><a href="#">Logout</a></li>
-                    <li><a href="{{ url_for('get_register') }}">Register</a></li>
-
+                    <li><a href="#">Blog</a></li>
+                    <!-- dynamic sorting on to logged in and logged out -->
+                    {% if session.user %}
+                        <li><a href="{{ url_for('profile') }}">Profile</a></li>
+                        <li><a href="{{ url_for('logout') }}">Logout</a></li>
+                    {% else %}
+                        <li><a href="{{ url_for('login') }}">Login</a></li>
+                        <li><a href="{{ url_for('get_register') }}">Register</a></li>
+                    {% endif %}
                 </ul>
             </div>
         </nav>
         <!-- mobile nav -->
         <ul class="sidenav" id="mobile-demo">
             <li><a href="{{ url_for('get_posts') }}">Home</a></li>
-            <li><a href="{{ url_for('profile', username=session['user']) }}">Profile</a></li>
-            <li><a href="#">Post</a></li>
-            <li><a href="#">Contact</a></li>
-            <li><a href="{{ url_for('login') }}">Login</a></li>
-            <li><a href="#">Logout</a></li>
-            <li><a href="{{ url_for('get_register') }}">Register</a></li>
+                    <li><a href="#">Blog</a></li>
+                    <!-- dynamic sorting on to logged in and logged out -->
+                    {% if session.user %}
+                        <li><a href="{{ url_for('profile') }}">Profile</a></li>
+                        <li><a href="{{ url_for('logout') }}">Logout</a></li>
+                    {% else %}
+                        <li><a href="{{ url_for('login') }}">Login</a></li>
+                        <li><a href="{{ url_for('get_register') }}">Register</a></li>
+                    {% endif %}
         </ul>
     </header>
-
     <section class="flash-message">
         <!-- {% with messages = get_flashed_messages() %}
             {% if messages %}
