@@ -23,11 +23,29 @@ mongo = PyMongo(app)
 @app.route("/")
 @app.route("/home")
 def home():
+    """
+    Route handling function for the home page.
+
+    This function is responsible for rendering the 'index.html' template
+    when the user accesses the root path ("/") or the '/home' path.
+
+    Returns:
+    str: Rendered HTML content for the 'index.html' template.
+    """
     return render_template("index.html")
 
 
 @app.route("/get_posts")
 def get_posts():
+    """
+    Route handling function to retrieve and display blog posts.
+
+    This function fetches blog posts from the MongoDB database and renders
+    the 'blog.html' template, passing the retrieved posts and a static image URL.
+
+    Returns:
+    str: Rendered HTML content for the 'blog.html' template.
+    """
     posts = list(mongo.db.posts.find())
     image_url = url_for('static', filename='images/test.jpg')
     return render_template("blog.html", posts=posts, image_url=image_url)
@@ -35,22 +53,41 @@ def get_posts():
 
 @app.route("/create_post", methods = ["GET","POST"])
 def create_post():
+    """
+    Route handling function for creating a new blog post.
+
+    If the request method is POST, this function retrieves user input for
+    the blog post title, content, and keywords. It then validates the input,
+    retrieves user details, and calls the 'save_post' function to save the
+    post to the MongoDB collection.
+
+    If the request method is GET, it checks if the user is in session. If not,
+    it redirects to the login page. Otherwise, it renders the 'create_post.html'
+    template.
+
+    Returns:
+    str: Rendered HTML content for 'create_post.html' template or redirects to
+    the login page.
+    """
     if request.method == "POST":
         title_input = request.form.get('title')
         textarea_content = request.form.get('content')
         # verify title input
         if not title_input or len(title_input) > 50:
             flash("Title shall not be more than 50", "error")
-            return render_template('create_post.html', title_input=title_input, textarea_content=textarea_content)
+            return render_template('create_post.html', title_input=title_input, 
+                                   textarea_content=textarea_content)
         # verify content input
         if not textarea_content or len(textarea_content) > 500:
             flash("Post content shall not be more than 500", "error")
-            return render_template('create_post.html', title_input=title_input, textarea_content=textarea_content)
+            return render_template('create_post.html', title_input=title_input, 
+                                   textarea_content=textarea_content)
         
         # get user input and user details
         title = request.form['title']
         content = request.form['content']
-        keywords = [tag.strip() for tag in request.form['keywords'].split(',') if tag.strip()]
+        keywords = [tag.strip() for tag in request.form['keywords'].split(',') 
+                    if tag.strip()]
         # get user details
         user_details = mongo.db.users.find_one({"username": session["user"]})
         # assign user details to author
@@ -61,7 +98,8 @@ def create_post():
         # create a date stamp with a specific format
         date_stamp = datetime.utcnow().strftime('%d-%m-%Y %H:%M:%S')
         # 
-        save_post(title, content, author, keywords, date_stamp)
+        return save_post(title, content, author, keywords, date_stamp)
+        
     # if GET method check if user in session if not redirect to log in
     if "user" in session:
         return render_template("create_post.html")
@@ -72,6 +110,22 @@ def create_post():
 
 # save post to mongoDB function
 def save_post(title, content, author, keywords, date_stamp):
+    """
+    Save post to MongoDB function.
+
+    This function takes the title, content, author details, keywords, and
+    date stamp as input and inserts a new post into the MongoDB collection.
+
+    Args:
+    title (str): The title of the blog post.
+    content (str): The content of the blog post.
+    author (dict): Dictionary containing author details (id, username).
+    keywords (list): List of keywords/tags associated with the blog post.
+    date_stamp (str): Date stamp in the format '%d-%m-%Y %H:%M:%S'.
+
+    Returns:
+    str: Redirects to the 'get_posts' route after successfully saving the post.
+    """
     post_data = {
         'title': title,
         'content': content,
@@ -84,8 +138,24 @@ def save_post(title, content, author, keywords, date_stamp):
     flash("Blog has been posted", "success")
     return redirect(url_for("get_posts"))
 
+
 @app.route("/get_register", methods = ["GET","POST"])
 def get_register():
+    """
+    Route handling function for user registration.
+
+    If the request method is POST, this function retrieves user input for
+    the username and password, checks if the username already exists, and
+    registers the user if it's a new username. The password is hashed using
+    Flask-Bcrypt's 'generate_password_hash' function before storing it in the
+    database.
+
+    If the request method is GET, it renders the 'register.html' template.
+
+    Returns:
+    str: Rendered HTML content for 'register.html' template or redirects to
+    the 'profile' route after successful registration.
+    """
     if request.method == "POST":
         username = request.form.get('username').lower()
         password = request.form.get('password')
@@ -112,6 +182,21 @@ def get_register():
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+    """
+    Route handling function for user login.
+
+    If the request method is POST, this function retrieves user input for
+    the username and password, checks if the username exists, and verifies
+    the password using Flask-Bcrypt's 'check_password_hash' function. If the
+    login is successful, it sets the user to the session cookie and redirects
+    to the 'profile' route.
+
+    If the request method is GET, it renders the 'login.html' template.
+
+    Returns:
+    str: Rendered HTML content for 'login.html' template or redirects to
+    the 'profile' route after successful login.
+    """
     if request.method == "POST":
         # Assign form inputs to new variables
         username = request.form.get('username').lower()
@@ -122,7 +207,8 @@ def login():
         if user_id and check_password_hash(user_id['password'], password):
             flash('Login successful!', 'success')
             session["user"] = request.form.get("username").lower()
-            return redirect(url_for("profile", username=session["user"].capitalize()))
+            return redirect(url_for("profile", 
+                                    username=session["user"].capitalize()))
         else:
             flash('Invalid username or password. Please try again.', 'error')
     return render_template("login.html")
@@ -130,7 +216,18 @@ def login():
 
 @app.route("/profile", methods=["GET", "POST"])
 def profile():
-    # Check if the 'user' is in the session to direct to profile page
+    """
+    Route handling function for user profile.
+
+    Checks if the user is in the session. If the user is in the session,
+    retrieves the user's ID from the MongoDB collection and renders the
+    'profile.html' template with the capitalized username. If the user is
+    not in the session, redirects to the 'login' route.
+
+    Returns:
+    str: Rendered HTML content for 'profile.html' template or redirects to
+    the 'login' route.
+    """
     if "user" in session:
         user_id = mongo.db.users.find_one(
             {"username": session["user"]})["username"]
@@ -141,7 +238,15 @@ def profile():
 
 @app.route("/logout")
 def logout():
-    # Clear the 'user' key from the session to log out the user
+    """
+    Route handling function for user logout.
+
+    Clears the 'user' key from the session to log out the user and
+    redirects to the 'login' route. Displays a success flash message.
+
+    Returns:
+    str: Redirects to the 'login' route after logging out.
+    """
     session.pop('user', None)
     flash('You have logged out', 'success')
     
