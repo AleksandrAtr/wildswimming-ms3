@@ -8,18 +8,20 @@
             <div class="row">
                 <div class="input-field col s12">
                     <i class="fa-solid fa-user prefix"></i>
-                    <input id="title" name="title" type="text" min="1" max="50" data-length="50" class="validate" value = "{{title_input}}" required>
+                    <input id="title" name="title" type="text" minlength="5"
+                    maxlength="50" data-length="50" class="validate" value = "{{title_input}}" required>
                     <label for="title">Post title</label>
-                    <p>(Minimum 1 and maximum 50 characters)</p>
+                    <p>(Minimum 5 and maximum 50 characters)</p>
                 </div>
             </div>
             <!-- content  -->
             <div class="row">
                 <div class="input-field col s12">
                     <i class="fa-solid fa-lock prefix"></i>
-                    <textarea id="content" class="materialize-textarea validate" min="1" max="50" name="content" type="text" data-length="500" required>{{textarea_content}}</textarea>
+                    <textarea id="content" class="materialize-textarea validate" minlength="5"
+                    maxlength="1000" name="content" type="text" data-length="1000" required>{{textarea_content}}</textarea>
                     <label for="content">Post content </label>
-                    <p>(Minimum 1 and maximum 500 characters)</p>
+                    <p>(Minimum 5 and maximum 1000 characters)</p>
                 </div>
             </div>
             <!-- keywords  -->
@@ -38,6 +40,4 @@
             </button>
     </form>   
 </div>
-
-
 {% endblock %}

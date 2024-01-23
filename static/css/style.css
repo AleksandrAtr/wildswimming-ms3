@@ -21,3 +21,11 @@
 .error {
     background-color: rgba(237, 116, 100, 0.925);
 }
+
+/* Styles for devices with screen width less than or equal to 375 pixels */
+@media only screen and (max-width: 375px) {
+    nav .brand-logo {
+      font-size: 1.5rem;
+    }
+
+  }
