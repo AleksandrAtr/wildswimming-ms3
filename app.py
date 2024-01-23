@@ -5,6 +5,7 @@ from flask import (
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
 from werkzeug.security import generate_password_hash, check_password_hash
+from datetime import datetime
 if os.path.exists("env.py"):
     import env
 
@@ -26,13 +27,57 @@ def get_posts():
     image_url = url_for('static', filename='images/test.jpg')
     return render_template("blog.html", posts=posts, image_url=image_url)
 
-@app.route("/create_post")
+
+@app.route("/create_post", methods = ["GET","POST"])
 def create_post():
+    if request.method == "POST":
+        title_input = request.form.get('title')
+        textarea_content = request.form.get('content')
+        # verify title input
+        if not title_input or len(title_input) > 50:
+            flash("Title shall not be more than 50", "error")
+            return render_template('create_post.html', title_input=title_input, textarea_content=textarea_content)
+        # verify content input
+        if not textarea_content or len(textarea_content) > 500:
+            flash("Post content shall not be more than 500", "error")
+            return render_template('create_post.html', title_input=title_input, textarea_content=textarea_content)
+        
+        # get user input and user details
+        title = request.form['title']
+        content = request.form['content']
+        keywords = [tag.strip() for tag in request.form['keywords'].split(',') if tag.strip()]
+        # get user details
+        user_details = mongo.db.users.find_one({"username": session["user"]})
+        # assign user details to author
+        author = {
+        'id': str(user_details["_id"]),
+        'username': user_details["username"]
+        }
+        # create a date stamp with a specific format
+        date_stamp = datetime.utcnow().strftime('%d-%m-%Y %H:%M:%S')
+        # 
+        save_post(title, content, author, keywords, date_stamp)
+    # if GET method check if user in session if not redirect to log in
     if "user" in session:
         return render_template("create_post.html")
-    flash("Log in to post", "error")
-    return redirect(url_for("login"))
+    else:
+        flash("Log in to post", "error")
+        return redirect(url_for("login"))
 
+
+# save post to mongoDB function
+def save_post(title, content, author, keywords, date_stamp):
+    post_data = {
+        'title': title,
+        'content': content,
+        'author': author,
+        'keywords': keywords,
+        'created_at': date_stamp
+    }
+    # Insert the post into the MongoDB collection
+    mongo.db.posts.insert_one(post_data)
+    flash("Blog has been posted", "success")
+    return redirect(url_for("get_posts"))
 
 @app.route("/get_register", methods = ["GET","POST"])
 def get_register():
