@@ -139,6 +139,18 @@ def save_post(title, content, author, keywords, date_stamp):
     return redirect(url_for("get_posts"))
 
 
+@app.route("/edit_post/<post_id>", methods=["GET", "POST"])
+def edit_post(post_id):
+    post = mongo.db.tasks.find_one({"_id": ObjectId(post_id)})
+    if post is not None:
+        title = post.get('title')
+        return render_template("edit_post.html", post=post, title=title)
+    else:
+        return "Post not found", 404
+        
+    # return render_template("edit_post.html", post=post, post_title=post_title)
+
+
 @app.route("/get_register", methods = ["GET","POST"])
 def get_register():
     """
