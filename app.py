@@ -41,7 +41,8 @@ def get_posts():
     Route handling function to retrieve and display blog posts.
 
     This function fetches blog posts from the MongoDB database and renders
-    the 'blog.html' template, passing the retrieved posts and a static image URL.
+    the 'blog.html' template, passing the retrieved posts and a static
+    image URL.
 
     Returns:
     str: Rendered HTML content for the 'blog.html' template.
@@ -51,7 +52,7 @@ def get_posts():
     return render_template("blog.html", posts=posts, image_url=image_url)
 
 
-@app.route("/create_post", methods = ["GET","POST"])
+@app.route("/create_post", methods=["GET", "POST"])
 def create_post():
     """
     Route handling function for creating a new blog post.
@@ -70,31 +71,30 @@ def create_post():
     the login page.
     """
     if request.method == "POST":
-        title_input = request.form.get('title')
-        textarea_content = request.form.get('content')
-        # verify title input
-        if not title_input or len(title_input) > 50:
-            flash("Title shall not be more than 50", "error")
-            return render_template('create_post.html', title_input=title_input, 
-                                   textarea_content=textarea_content)
-        # verify content input
-        if not textarea_content or len(textarea_content) > 500:
-            flash("Post content shall not be more than 500", "error")
-            return render_template('create_post.html', title_input=title_input, 
-                                   textarea_content=textarea_content)
-        
         # get user input and user details
         title = request.form['title']
         content = request.form['content']
         keywords = [tag.strip() for tag in request.form['keywords'].split(',') 
                     if tag.strip()]
+        # verify title input
+        if not title or len(title) > 50:
+            flash("Title shall not be more than 50", "error")
+            return render_template('create_post.html', title_input=title, 
+                                   textarea_content=content)
+        # verify content input
+        if not content or len(content) > 1000:
+            flash("Post content shall not be more than 1000", "error")
+            return render_template('create_post.html', title_input=title, 
+                                   textarea_content=content)
+
         # get user details
         user_details = mongo.db.users.find_one({"username": session["user"]})
         # assign user details to author
         author = {
-        'id': str(user_details["_id"]),
-        'username': user_details["username"]
+            'id': str(user_details["_id"]),
+            'username': user_details["username"]
         }
+        print(author)
         # create a date stamp with a specific format
         date_stamp = datetime.utcnow().strftime('%d-%m-%Y %H:%M:%S')
         # 
@@ -141,17 +141,37 @@ def save_post(title, content, author, keywords, date_stamp):
 
 @app.route("/edit_post/<post_id>", methods=["GET", "POST"])
 def edit_post(post_id):
-    post = mongo.db.tasks.find_one({"_id": ObjectId(post_id)})
+    if request.method == "POST":
+        title = request.form.get('title')
+        content = request.form.get('content')
+        keywords = [tag.strip() for tag in request.form['keywords'].split(',') 
+                    if tag.strip()]
+        # verify title input
+        if not title or len(title) > 50:
+            flash("Title shall not be more than 50", "error")
+            return render_template('create_post.html', title_input=title, 
+                                textarea_content=content)
+        # verify content input
+        if not content or len(content) > 1000:
+            flash("Post content shall not be more than 1000", "error")
+            return render_template('create_post.html', title_input=title, 
+                                textarea_content=content)
+        # update database original post
+        mongo.db.posts.update_one(
+            {"_id": ObjectId(post_id)},
+            {"$set": {"title": title, "content": content, 
+                      "keywords": keywords}})
+        flash("Post updated", "success")
+        return redirect(url_for("get_posts"))
+    # get and check if post exists in database
+    post = mongo.db.posts.find_one({"_id": ObjectId(post_id)})
     if post is not None:
-        title = post.get('title')
-        return render_template("edit_post.html", post=post, title=title)
+        return render_template("edit_post.html", post=post)
     else:
         return "Post not found", 404
-        
-    # return render_template("edit_post.html", post=post, post_title=post_title)
 
 
-@app.route("/get_register", methods = ["GET","POST"])
+@app.route("/get_register", methods=["GET", "POST"])
 def get_register():
     """
     Route handling function for user registration.
@@ -269,4 +289,3 @@ if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),
             port=int(os.environ.get("PORT")),
             debug=True)
-    

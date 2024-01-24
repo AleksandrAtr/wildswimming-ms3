@@ -10,7 +10,7 @@
                 <div class="input-field col s12">
                     <i class="fa-solid fa-user prefix"></i>
                     <input id="title" name="title" type="text" minlength="5"
-                    maxlength="50" data-length="50" class="validate" value = "{{ post_title }}" required>
+                    maxlength="50" data-length="50" class="validate" value = "{{ post.title }}" required>
                     <label for="title">Post title</label>
                     <p>(Minimum 5 and maximum 50 characters)</p>
                 </div>
@@ -29,9 +29,9 @@
             <div class="row">
                 <div class="input-field col s12">
                     <i class="fa-solid fa-lock prefix"></i>
-                    <input id="keywords" name="keywords" type="text" class="validate" required>
-                    <label for="keywords">Tags (comma-separated)</label>
-                    <p>(Add keywords that best describe the post, e.g. Lake Swimming)</p>
+                    <input id="keywords" name="keywords" type="text" class="validate" value="{% for item in post.keywords %}{{ item }}{% if not loop.last %}, {% endif %}{% endfor %}" required>
+                    <label for="keywords">Add Tags separated by commas.</label>
+                    <p>(Add relevant tags for this content and separate them with commas. For example: lake swimming, safety)</p>
                 </div>
             </div>
         </div>
