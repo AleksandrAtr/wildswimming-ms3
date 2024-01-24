@@ -47,9 +47,9 @@ def get_posts():
     Returns:
     str: Rendered HTML content for the 'blog.html' template.
     """
-    posts = list(mongo.db.posts.find())
-    image_url = url_for('static', filename='images/test.jpg')
-    return render_template("blog.html", posts=posts, image_url=image_url)
+    post= list(mongo.db.posts.find())
+    image_url = url_for('static', filename='images/post_default.jpg')
+    return render_template("blog.html", post=post, image_url=image_url)
 
 
 @app.route("/create_post", methods=["GET", "POST"])
@@ -94,7 +94,6 @@ def create_post():
             'id': str(user_details["_id"]),
             'username': user_details["username"]
         }
-        print(author)
         # create a date stamp with a specific format
         date_stamp = datetime.utcnow().strftime('%d-%m-%Y %H:%M:%S')
         # 
@@ -171,6 +170,13 @@ def edit_post(post_id):
         return "Post not found", 404
 
 
+@app.route("/delete_post/<post_id>", methods=["GET", "POST"])
+def delete_post(post_id):
+    posts = list(mongo.db.posts.find())
+    mongo.db.posts.delete_one({'_id': ObjectId(post_id)})
+    return redirect(url_for('get_posts'))
+
+
 @app.route("/get_register", methods=["GET", "POST"])
 def get_register():
     """
@@ -239,8 +245,7 @@ def login():
         if user_id and check_password_hash(user_id['password'], password):
             flash('Login successful!', 'success')
             session["user"] = request.form.get("username").lower()
-            return redirect(url_for("profile", 
-                                    username=session["user"].capitalize()))
+            return redirect(url_for("profile"))
         else:
             flash('Invalid username or password. Please try again.', 'error')
     return render_template("login.html")
@@ -261,9 +266,12 @@ def profile():
     the 'login' route.
     """
     if "user" in session:
+        image_url = url_for('static', filename='images/post_default.jpg')
         user_id = mongo.db.users.find_one(
             {"username": session["user"]})["username"]
-        return render_template('profile.html', username=user_id.capitalize())
+        user_posts = list(mongo.db.posts.find({"author.username": user_id}))
+        return render_template('profile.html', username=user_id.capitalize(), 
+                               post=user_posts, image_url=image_url)
 
     return redirect(url_for('login'))
 
