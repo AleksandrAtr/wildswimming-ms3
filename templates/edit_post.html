@@ -1,9 +1,10 @@
 {% extends "base.html" %}
 {% block content %}
 
+<h3 class="center-align">Edit post</h3>
+
 <div class="row">
-    <form class="col s12 m6 offset-m3" method="POST" action="{{url_for('edit_post', post_id=post._id)}}">
-        <h1>Edit post</h1>
+    <form class="col s12 m10 offset-m1" method="POST" action="{{url_for('edit_post', post_id=post._id)}}">
         <div class="card-panel">
             <!-- title -->
             <div class="row">
@@ -30,17 +31,18 @@
                 <div class="input-field col s12">
                     <i class="fa-solid fa-lock prefix"></i>
                     <input id="keywords" name="keywords" type="text" class="validate" value="{% for item in post.keywords %}{{ item }}{% if not loop.last %}, {% endif %}{% endfor %}" required>
-                    <label for="keywords">Add Tags separated by commas.</label>
+                    <label for="keywords">Add Tags</label>
                     <p>(Add relevant tags for this content and separate them with commas. For example: lake swimming, safety)</p>
                 </div>
             </div>
         </div>
         <!-- Update post -->
-            <a href="{{url_for('get_posts')}}"class="col s6 btn-large blue-grey light text-shadow cancel-btn">Cancel editing</a>
-            <button type="submit" class="col s6 btn-large blue-grey darken-3 text-shadow">
+        <div class="center-align"> 
+            <a href="{{url_for('get_posts')}}"class="btn-large btn2">Cancel editing</a>
+            <button type="submit" class="btn-large btn2">
                 Update post <i class="fa-solid fa-right-to-bracket"></i>
             </button>
-            
+        </div>
     </form>   
 </div>
 {% endblock %}

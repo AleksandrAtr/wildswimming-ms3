@@ -1,10 +1,37 @@
-.text-shadow {
-    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
-}
+/* --------------------------------------------Imported Google fonts */
+/* 
+font-family: 'Lato', sans-serif;
+font-family: 'Roboto Slab', serif; 
+*/
+
 
 /* control sidenave width */
 .sidenav {
     width: 150px;
+}
+
+html,
+body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+footer {
+    display: bottom;
+}
+
+.footer {
+    background-color: #f0f0f0;
+    padding: 10px;
+    text-align: center;
+    margin-top: auto;
 }
 
 .flash-message {
@@ -22,15 +49,151 @@
     background-color: rgba(237, 116, 100, 0.925);
 }
 
-a {
+botton {
+    font-family: 'Roboto Slab', serif;
+    background-color: #263238;
+}
+
+p {
+    font-family: 'Lato', sans-serif;
+}
+
+span {
+    font-family: 'Lato', sans-serif;
+}
+
+h1,
+h2,
+h3 {
+    color: aliceblue;
+    font-family: 'Lato', sans-serif;
+}
+
+.container {
+    max-width: 850px;
+    background-color: rgba(38, 50, 56, 0.6);
+    margin-top: 20px;
+    padding: 10px;
+    z-index: 99;
+}
+
+.link {
+    color: aliceblue;
+    text-decoration: underline;
+}
+
+html {
+    background-image: url(/static/images/water1.jpg);
+    background-position: center;
+    background-size: cover;
+    background-color: rgba(96, 125, 139, 0.9);
+}
+
+.tags {
+    display: flex;
+    flex-direction: column;
+}
+
+.info {
+    font-size: 0.9rem;
+}
+
+.helper {
+    color: aliceblue;
+    letter-spacing: 1.2px;
+}
+
+.btn1 {
+    background-color: rgba(43, 55, 62, 1);
     margin: 5px;
 }
 
-/* Styles for devices with screen width less than or equal to 375 pixels */
-@media only screen and (max-width: 375px) {
-    nav .brand-logo {
-      font-size: 1.5rem;
+.btn1:hover {
+    background-color: rgba(31, 39, 45, 1);
+}
+
+
+.btn2 {
+    background-color: #455a64;
+    margin: 5px;
+}
+
+.btn2:hover {
+    background-color: #263238;
+}
+
+.cover {
+    font-size: 1.05rem;
+    color: #263238;
+}
+
+.coverimg {
+    width: 100%;
+    height: 100px;
+}
+
+.contained-image {
+    width: 100%;
+    margin-top: 2.5%;
+    margin-left: auto;
+    margin-right: auto;
+    height: 700px;
+    background-position: center;
+    background-position-y: bottom;
+    position: relative;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)), url(/static/images/cover1.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    color: #fff;
+    text-align: center;
+    padding: 20px;
+}
+
+.hero-image {
+    background-color: rgba(38, 50, 56, 0.6);
+    max-width: 850px;
+}
+
+.read-blog {
+    margin-top: 25px;
+    margin-bottom: 100px;
+    max-width: 850px;
+}
+
+.page-footer {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    color: #fff;
+}
+
+.nav-wrapper {
+    padding: 0 10px;
+}
+
+.nav-link li a {
+    font-size: 1.25rem;
+}
+
+nav ul a:hover {
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
+
+.mylogo {
+    font-size: 5rem;
+}
+
+/* styles for devices with screen width less than or equal to 375 pixels */
+/* --------------------------------------------Media Query Styles */
+/* RESPONSIVE design section------------------------------------------------------*/
+@media all and (max-width: 375px) {
+    .mylogo {
+        font-size: 5rem;
     }
 
-  }
-  
+    h1,
+    h2,
+    h3 {
+        font-size: 1.5rem;
+    }
+}

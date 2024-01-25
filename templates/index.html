@@ -1,12 +1,35 @@
 {% extends "base.html" %}
-{% block content %}
-
-<h3 class="center-align">Hello and welcome to the wild swimmers hub</h3>
-
-<div class="row">
-    <div class="col s12 m8 offset-m2 center-align">
-        <p>Hello and welcome to the wild swimmers hub</p>
+{% block addCont %}
+    <div class="contained-image">
+        {% block content %}
+        <div class="container hero-image">
+            <div class="center">
+                <h3>Welcome to the hub for outdoor swimmers</h3>
+            </div>
+            <div class="row">
+                <div class="center-align cover">
+                    
+                </div>
+            </div>
+        </div>
+        {% endblock %}
     </div>
-</div>
-
+    <div class="container helper">
+        <h3>Why are you here?</h3>
+        <p>It's a digital haven for passionate wild swimmers! Our mission is to build a vibrant community of water enthusiasts who share a love for openwater swimming and the breathtaking places it takes us. Whether you're a seasoned swimmer or just dipping your toes into the world of wild swimming, this platform is your space to connect, share, and inspire.</p>
+    </div>
+    <div class="row">
+        <div class="col s12 center">
+            <a href="{{ url_for('get_posts') }}" class="read-blog btn-large btn2">
+                Read Blog  <i class="fa-brands fa-readme"></i>
+            </a>
+        </div>
+    </div>
+  
 {% endblock %}
+
+
+
+
+
+

@@ -1,13 +1,15 @@
 {% extends "base.html" %}
 {% block content %}
 
+<h3 class="center-align">Write a post</h3>
+
 <div class="row">
-    <form class="col s12 m6 offset-m3" method="POST" action="{{url_for('create_post')}}">
+    <form class="col s12 m10 offset-m1" method="POST" action="{{url_for('create_post')}}">
         <div class="card-panel">
             <!-- title -->
             <div class="row">
                 <div class="input-field col s12">
-                    <i class="fa-solid fa-user prefix"></i>
+                    <i class="fa-solid fa-check prefix"></i>
                     <input id="title" name="title" type="text" minlength="5"
                     maxlength="50" data-length="50" class="validate" value = "{{title_input}}" required>
                     <label for="title">Post title</label>
@@ -17,7 +19,7 @@
             <!-- content  -->
             <div class="row">
                 <div class="input-field col s12">
-                    <i class="fa-solid fa-lock prefix"></i>
+                    <i class="fa-solid fa-check prefix"></i>
                     <textarea id="content" class="materialize-textarea validate" minlength="5"
                     maxlength="1000" name="content" type="text" data-length="1000" required>{{textarea_content}}</textarea>
                     <label for="content">Post content </label>
@@ -27,7 +29,7 @@
             <!-- keywords  -->
             <div class="row">
                 <div class="input-field col s12">
-                    <i class="fa-solid fa-lock prefix"></i>
+                    <i class="fa-solid fa-check prefix"></i>
                     <input id="keywords" name="keywords" type="text" class="validate" required>
                     <label for="keywords">Tags (comma-separated)</label>
                     <p>(Add keywords that best describe the post, e.g. Lake Swimming)</p>
@@ -35,9 +37,13 @@
             </div>
         </div>
         <!-- post -->
-            <button type="submit" class="col s12 btn-large blue-grey darken-3 text-shadow">
-                Post <i class="fa-solid fa-right-to-bracket"></i>
+        <div class="center">
+            <a href="{{url_for('get_posts')}}"class="btn-large btn2">Cancel</a>
+            <button type="submit" class="btn-large btn2">
+                Post <i class="fa-solid fa-paper-plane"></i>
             </button>
+        </div>
+            
     </form>   
 </div>
 {% endblock %}

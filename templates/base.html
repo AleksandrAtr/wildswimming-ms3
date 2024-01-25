@@ -8,6 +8,7 @@
         integrity="" crossorigin="anonymous" type="text/css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
         type="text/css">
+    <link href="https://fonts.googleapis.com/css2?family=Lato&family=Roboto+Slab&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" type="text/css">
     {% block styles %}
     {% endblock %}
@@ -15,26 +16,28 @@
 </head>
 <body>
     <header>
-        <nav>
-            <!-- browser nav -->
-            <div class="nav-wrapper blue-grey darken-3">
-                <a href="{{ url_for('home') }}" class="brand-logo">Wild Swimmer</a>
-                <a href="{{ url_for('home') }}" data-target="mobile-demo" class="sidenav-trigger right"><i class="fas fa-bars"></i></a>
-                <ul class="right hide-on-med-and-down">
-                    <li><a href="{{ url_for('home') }}">Home</a></li>
-                    <li><a href="{{ url_for('get_posts') }}">Blog</a></li>
-                    <!-- dynamic sorting on to logged in and logged out -->
-                    {% if session.user %}
-                        <li><a href="{{ url_for('profile') }}">Profile</a></li>
-                        <li><a href="{{ url_for('create_post') }}">Create Post</a></li>
-                        <li><a href="{{ url_for('logout') }}">Logout</a></li>
-                    {% else %}
-                        <li><a href="{{ url_for('login') }}">Login</a></li>
-                        <li><a href="{{ url_for('get_register') }}">Register</a></li>
-                    {% endif %}
-                </ul>
-            </div>
-        </nav>
+        <div class="navbar-fixed">
+            <nav>
+                <!-- browser nav -->
+                <div class="nav-wrapper blue-grey darken-3">
+                    <a href="{{ url_for('home') }}" class="brand-logo left mylogo">Wild Swimmer</a>
+                    <a href="{{ url_for('home') }}" data-target="mobile-demo" class="sidenav-trigger right"><i class="fas fa-bars"></i></a>
+                    <ul class="right hide-on-med-and-down nav-link">
+                        <li><a href="{{ url_for('home') }}">Home</a></li>
+                        <li><a href="{{ url_for('get_posts') }}">Blog</a></li>
+                        <!-- dynamic sorting on to logged in and logged out -->
+                        {% if session.user %}
+                            <li><a href="{{ url_for('profile') }}" class="{% if request.path == '/profile' %}active{% endif %}">Profile</a></li>
+                            <li><a href="{{ url_for('create_post') }}">Create Post</a></li>
+                            <li><a href="{{ url_for('logout') }}">Logout</a></li>
+                        {% else %}
+                            <li><a href="{{ url_for('login') }}">Login</a></li>
+                            <li><a href="{{ url_for('get_register') }}">Register</a></li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </nav>
+        </div>
         <!-- mobile nav -->
         <ul class="sidenav" id="mobile-demo">
             <li><a href="{{ url_for('home') }}">Home</a></li>
@@ -64,10 +67,24 @@
     </section>
 
     <main>
-        {% block content %}
+        {% block addCont %}
+            <div class="container">
+                {% block content %}
+                {% endblock %}
+            </div>
         {% endblock %}
     </main>
-    
+    <!-- <footer class="page-footer blue-grey darken-3">
+        <div class="center">
+            Fictional site created for educational purpose
+        </div>
+      </footer> -->
+    <footer class="footer blue-grey darken-3">
+        <div >
+            <!-- Your footer content goes here -->
+            <p class="helper">Fictional site created for educational purpose</p>
+        </div>
+    </footer>
     <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script src="{{ url_for('static', filename='js/script.js') }}"></script>
