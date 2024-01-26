@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
         type="text/css">
     <link href="https://fonts.googleapis.com/css2?family=Lato&family=Roboto+Slab&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='images/favicon-32x32.png')}}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" type="text/css">
     {% block styles %}
     {% endblock %}
@@ -20,7 +21,7 @@
             <nav>
                 <!-- browser nav -->
                 <div class="nav-wrapper blue-grey darken-3">
-                    <a href="{{ url_for('home') }}" class="brand-logo left mylogo">Wild Swimmer</a>
+                    <a href="{{ url_for('home') }}" class="brand-logo left">Wild Swimmer</a>
                     <a href="{{ url_for('home') }}" data-target="mobile-demo" class="sidenav-trigger right"><i class="fas fa-bars"></i></a>
                     <ul class="right hide-on-med-and-down nav-link">
                         <li><a href="{{ url_for('home') }}">Home</a></li>
@@ -57,7 +58,7 @@
     <!-- display warning messages -->
     {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}
-            <ul class="flashes">
+            <ul class="">
                 {% for category, message in messages %}
                     <li class="{{ category }}">{{ message }}</li>
             {% endfor %}

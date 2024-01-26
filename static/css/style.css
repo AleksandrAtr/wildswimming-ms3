@@ -10,8 +10,7 @@ font-family: 'Roboto Slab', serif;
     width: 150px;
 }
 
-html,
-body {
+html, body {
     height: 100%;
     margin: 0;
     padding: 0;
@@ -28,14 +27,13 @@ footer {
 }
 
 .footer {
-    background-color: #f0f0f0;
     padding: 10px;
     text-align: center;
     margin-top: auto;
 }
 
 .flash-message {
-    background-color: cornflowerblue;
+    max-width: 850px;
     color: black;
     font-size: 2rem;
     text-align: center;
@@ -62,9 +60,7 @@ span {
     font-family: 'Lato', sans-serif;
 }
 
-h1,
-h2,
-h3 {
+h1, h2, h3 {
     color: aliceblue;
     font-family: 'Lato', sans-serif;
 }
@@ -179,16 +175,13 @@ nav ul a:hover {
 }
 
 
-.mylogo {
-    font-size: 5rem;
-}
-
 /* styles for devices with screen width less than or equal to 375 pixels */
 /* --------------------------------------------Media Query Styles */
 /* RESPONSIVE design section------------------------------------------------------*/
 @media all and (max-width: 375px) {
-    .mylogo {
-        font-size: 5rem;
+
+    nav .brand-logo {
+        font-size: 1.5rem;
     }
 
     h1,
