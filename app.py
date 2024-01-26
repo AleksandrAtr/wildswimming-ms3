@@ -45,6 +45,14 @@ def get_posts():
     return render_template("blog.html", post=post, image_url=image_url)
 
 
+@app.route("/search", methods=["GET", "POST"])
+def search():
+    query = request.form.get("query")
+    get_posts = list(mongo.db.posts.find({"$text": {"$search": query}}))
+    image_url = url_for('static', filename='images/post_default.jpg')
+    return render_template("blog.html", post=get_posts, image_url=image_url)
+
+
 @app.route("/create_post", methods=["GET", "POST"])
 def create_post():
     """
