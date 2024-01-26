@@ -10,6 +10,10 @@ font-family: 'Roboto Slab', serif;
     width: 150px;
 }
 
+nav ul li.active {
+    background-color: rgba(0,0,0,0.5);
+}
+
 html, body {
     height: 100%;
     margin: 0;

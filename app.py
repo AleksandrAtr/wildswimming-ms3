@@ -24,13 +24,7 @@ mongo = PyMongo(app)
 @app.route("/home")
 def home():
     """
-    Route handling function for the home page.
 
-    This function is responsible for rendering the 'index.html' template
-    when the user accesses the root path ("/") or the '/home' path.
-
-    Returns:
-    str: Rendered HTML content for the 'index.html' template.
     """
     img_url = url_for('static', filename='images/cover.jpg')
     return render_template("index.html", img_url=img_url)
