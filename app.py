@@ -169,6 +169,7 @@ def edit_post(post_id):
 def delete_post(post_id):
     posts = list(mongo.db.posts.find())
     mongo.db.posts.delete_one({'_id': ObjectId(post_id)})
+    flash("Post deleted", "success")
     return redirect(url_for('get_posts'))
 
 
