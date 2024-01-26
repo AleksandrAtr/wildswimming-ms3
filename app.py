@@ -9,13 +9,11 @@ from datetime import datetime
 if os.path.exists("env.py"):
     import env
 
-
 app = Flask(__name__)
 
 app.config["MONGO_DBNAME"] = os.environ.get("MONGO_DBNAME")
 app.config["MONGO_URI"] = os.environ.get("MONGO_URI")
 app.secret_key = os.environ.get("SECRET_KEY")
-
 
 mongo = PyMongo(app)
 
@@ -93,8 +91,8 @@ def create_post():
         date_stamp = datetime.utcnow().strftime('%d-%m-%Y %H:%M:%S')
         # 
         return save_post(title, content, author, keywords, date_stamp)
-        
-    # if GET method check if user in session if not redirect to log in
+
+    # if  method is GET check if user in session if not redirect to log in
     if "user" in session:
         return render_template("create_post.html")
     else:
@@ -127,7 +125,7 @@ def save_post(title, content, author, keywords, date_stamp):
         'keywords': keywords,
         'created_at': date_stamp
     }
-    # Insert the post into the MongoDB collection
+    # insert the post into the MongoDB collection
     mongo.db.posts.insert_one(post_data)
     flash("Blog has been posted", "success")
     return redirect(url_for("get_posts"))
@@ -167,10 +165,15 @@ def edit_post(post_id):
 
 @app.route("/delete_post/<post_id>", methods=["GET", "POST"])
 def delete_post(post_id):
-    posts = list(mongo.db.posts.find())
-    mongo.db.posts.delete_one({'_id': ObjectId(post_id)})
-    flash("Post deleted", "success")
-    return redirect(url_for('get_posts'))
+    # get and check if post exists in database
+    post = mongo.db.posts.find_one({"_id": ObjectId(post_id)})
+    if post is not None:
+        print(post)
+        mongo.db.posts.delete_one(post)
+        flash("Post deleted", "success")
+        return redirect(url_for('get_posts'))
+    else:
+        return "Post not found", 404
 
 
 @app.route("/get_register", methods=["GET", "POST"])
@@ -268,7 +271,6 @@ def profile():
         user_posts = list(mongo.db.posts.find({"author.username": user_id}))
         return render_template('profile.html', username=user_id.capitalize(), 
                                post=user_posts, image_url=image_url)
-
     return redirect(url_for('login'))
 
 
@@ -285,7 +287,6 @@ def logout():
     """
     session.pop('user', None)
     flash('You have logged out', 'success')
-    
     return redirect(url_for('login'))
 
 
