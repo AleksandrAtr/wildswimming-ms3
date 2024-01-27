@@ -1,7 +1,7 @@
 import os
 from flask import (
     Flask, flash, render_template,
-    redirect, request, session, url_for)
+    redirect, request, session, url_for, abort)
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -21,9 +21,6 @@ mongo = PyMongo(app)
 @app.route("/")
 @app.route("/home")
 def home():
-    """
-
-    """
     img_url = url_for("static", filename="images/cover.jpg")
     return render_template("index.html", img_url=img_url)
 
@@ -37,7 +34,8 @@ def url_redirect(template):
             flash("Log in to post", "error")
             session["blog_url"] = request.url
             return redirect(url_for("login"))
-    return "Template Link argument does not match with this specific route", 404 
+    else:
+        abort(500)
 
 
 @app.route("/url_edit/<post_id>/<template>", methods=["GET", "POST"])
@@ -45,7 +43,8 @@ def url_edit(post_id, template):
     if template == "edit_profile":
         session["edit_profile"] = request.url
         return redirect(url_for("edit_post", post_id=post_id))
-    return "Template Link argument does not match with this specific route", 404 
+    else:
+        abort(500) 
 
 
 @app.route("/url_delete/<post_id>/<template>", methods=["GET", "POST"])
@@ -53,7 +52,8 @@ def url_delete(post_id, template):
     if template == "delete_profile":
         session["delete_profile"] = request.url
         return redirect(url_for("delete_post", post_id=post_id))
-    return "Template Link argument does not match with this specific route", 404 
+    else:
+        abort(500) 
 
 
 @app.route("/get_posts")
@@ -332,6 +332,16 @@ def logout():
         session.pop(key, None)
     flash('You have logged out', 'success')
     return redirect(url_for('login'))
+
+
+@app.errorhandler(404)
+def page_not_found(error):
+    return render_template('404.html'), 404
+
+
+@app.errorhandler(500)
+def internal_server_error(error):
+    return render_template('500.html'), 500
 
 
 if __name__ == "__main__":
