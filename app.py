@@ -21,12 +21,39 @@ mongo = PyMongo(app)
 @app.route("/")
 @app.route("/home")
 def home():
+    """
+    Route handling function for the home page.
+
+    Constructs the URL for a static image and renders the 'index.html'
+    template, passing the image URL.
+
+    Returns:
+    str: Rendered HTML content for the 'index.html' template.
+    """
     img_url = url_for("static", filename="images/cover.jpg")
     return render_template("index.html", img_url=img_url)
 
 
 @app.route("/url_redirect/<template>", methods=["GET", "POST"])
 def url_redirect(template):
+    """
+    Route handling function for URL redirection.
+
+    This function redirects users based on the specified template parameter.
+
+    Args:
+    template (str): The template parameter determining the redirection
+    behavior.
+
+    Returns:
+    Union[str, Response]: If template is "blog" and user is logged in,
+    renders 'create_post.html'. If user is not logged in, flashes an error
+    message, saves the current URL in the session, and redirects to the login
+    page.
+
+    Raises:
+    500 Error: If an unsupported template is provided, raises a 500 error.
+    """
     if template == "blog":
         if "user" in session:
             return render_template("create_post.html")
@@ -40,20 +67,50 @@ def url_redirect(template):
 
 @app.route("/url_edit/<post_id>/<template>", methods=["GET", "POST"])
 def url_edit(post_id, template):
+    """
+    Route handling function for editing URLs.
+
+    This function redirects users based on the specified template parameter.
+
+    Parameters:
+    post_id (str): The identifier of the post to be edited.
+    template (str): The template parameter determining the editing behavior.
+
+    Returns:
+    Response: Redirects to the appropriate route based on the template.
+
+    Raises:
+    HTTPException: If an unsupported template is provided, raises a 500 error.
+    """
     if template == "edit_profile":
         session["edit_profile"] = request.url
         return redirect(url_for("edit_post", post_id=post_id))
     else:
-        abort(500) 
+        abort(500)
 
 
 @app.route("/url_delete/<post_id>/<template>", methods=["GET", "POST"])
 def url_delete(post_id, template):
+    """
+    Route handling function for deleting URLs.
+
+    This function redirects users based on the specified template parameter.
+
+    Parameters:
+    post_id (str): The identifier of the post to be deleted.
+    template (str): The template parameter determining the deletion behavior.
+
+    Returns:
+    Response: Redirects to the appropriate route based on the template.
+
+    Raises:
+    HTTPException: If an unsupported template is provided, raises a 500 error.
+    """
     if template == "delete_profile":
         session["delete_profile"] = request.url
         return redirect(url_for("delete_post", post_id=post_id))
     else:
-        abort(500) 
+        abort(500)
 
 
 @app.route("/get_posts")
@@ -75,6 +132,20 @@ def get_posts():
 
 @app.route("/search", methods=["GET", "POST"])
 def search():
+    """
+    Route handling function for searching posts.
+
+    Retrieves posts from the MongoDB database based on the provided search
+    query.
+    Renders the 'blog.html' template, passing the retrieved posts and a static
+    image URL.
+
+    Returns:
+    str: Rendered HTML content for the 'blog.html' template.
+
+    Raises:
+    Any exceptions that may occur during template rendering or database query.
+    """
     query = request.form.get("query")
     get_posts = list(mongo.db.posts.find({"$text": {"$search": query}}))
     image_url = url_for("static", filename="images/post_default.jpg")
@@ -84,36 +155,37 @@ def search():
 @app.route("/create_post", methods=["GET", "POST"])
 def create_post():
     """
-    Route handling function for creating a new blog post.
+    Route handling function for creating a new post.
 
-    If the request method is POST, this function retrieves user input for
-    the blog post title, content, and keywords. It then validates the input,
-    retrieves user details, and calls the 'save_post' function to save the
-    post to the MongoDB collection.
-
-    If the request method is GET, it checks if the user is in session. If not,
-    it redirects to the login page. Otherwise, it renders the 'create_post.html'
-    template.
+    If the request method is POST, retrieves user input and details, verifies
+    the input for title and content, retrieves user details, and then calls
+    the 'save_post' function to save the post. If the request method is GET,
+    renders the 'create_post.html' template.
 
     Returns:
-    str: Rendered HTML content for 'create_post.html' template or redirects to
-    the login page.
+    Union[str, Response]: If the request method is POST and the post is
+    successfully
+    saved, redirects to a relevant page. If the request method is GET, renders
+    the 'create_post.html' template.
+
+    Raises:
+    Any exceptions that may occur during the post creation process.
     """
     if request.method == "POST":
         # get user input and user details
         title = request.form["title"]
         content = request.form["content"]
-        keywords = [tag.strip() for tag in request.form["keywords"].split(",") 
+        keywords = [tag.strip() for tag in request.form["keywords"].split(",")
                     if tag.strip()]
         # verify title input
         if not title or len(title) > 50:
             flash("Title shall not be more than 50", "error")
-            return render_template("create_post.html", title_input=title, 
+            return render_template("create_post.html", title_input=title,
                                    textarea_content=content)
         # verify content input
         if not content or len(content) > 1000:
             flash("Post content shall not be more than 1000", "error")
-            return render_template("create_post.html", title_input=title, 
+            return render_template("create_post.html", title_input=title,
                                    textarea_content=content)
         # get user details
         user_details = mongo.db.users.find_one({"username": session["user"]})
@@ -124,9 +196,9 @@ def create_post():
         }
         # create a date stamp with a specific format
         date_stamp = datetime.utcnow().strftime("%d-%m-%Y %H:%M:%S")
-        # 
         return save_post(title, content, author, keywords, date_stamp)
     return render_template("create_post.html")
+
 
 # save post to mongoDB function
 def save_post(title, content, author, keywords, date_stamp):
@@ -145,6 +217,9 @@ def save_post(title, content, author, keywords, date_stamp):
 
     Returns:
     str: Redirects to the 'get_posts' route after successfully saving the post.
+
+    Raises:
+    Any exceptions that may occur during the post creation process.
     """
     post_data = {
         "title": title,
@@ -159,32 +234,53 @@ def save_post(title, content, author, keywords, date_stamp):
     return redirect(url_for("get_posts"))
 
 
-
 @app.route("/edit_post/<post_id>", methods=["GET", "POST"])
 def edit_post(post_id):
+    """
+    Route handling function for editing a post.
+
+    If the request method is POST, retrieves user input, verifies the input for
+    title and content, and updates the original post in the database. If the
+    request method is GET, retrieves the post from the database and renders the
+    'edit_post.html' template.
+
+    Parameters:
+    post_id (str): The identifier of the post to be edited.
+
+    Returns:
+    Union[str, Response]: If the request method is POST and the post is
+    successfully
+    updated, redirects to a relevant page. If the request method is GET,
+    renders
+    the 'edit_post.html' template with the retrieved post.
+
+    Raises:
+    HTTPException: If the post with the specified post_id is not found, returns
+    a 404 error.
+    """
     if request.method == "POST":
         title = request.form.get("title")
         content = request.form.get("content")
-        keywords = [tag.strip() for tag in request.form["keywords"].split(",") 
+        keywords = [tag.strip() for tag in request.form["keywords"].split(",")
                     if tag.strip()]
         # verify title input
         if not title or len(title) > 50:
             flash("Title shall not be more than 50", "error")
-            return render_template('create_post.html', title_input=title, 
+            return render_template('create_post.html', title_input=title,
                                 textarea_content=content)
         # verify content input
         if not content or len(content) > 1000:
             flash("Post content shall not be more than 1000", "error")
-            return render_template('create_post.html', title_input=title, 
+            return render_template('create_post.html', title_input=title,
                                 textarea_content=content)
         # update database original post
         mongo.db.posts.update_one(
             {"_id": ObjectId(post_id)},
-            {"$set": {"title": title, "content": content, 
+            {"$set": {"title": title, "content": content,
                       "keywords": keywords}})
         flash("Post updated", "success")
         # redirection use check
-        edit_profile= session.pop("edit_profile", None)
+        edit_profile = session.pop("edit_profile", None)
         if edit_profile:
             return redirect(url_for("profile"))
         return redirect(url_for("get_posts"))
@@ -198,13 +294,33 @@ def edit_post(post_id):
 
 @app.route("/delete_post/<post_id>", methods=["GET", "POST"])
 def delete_post(post_id):
+    """
+    Route handling function for deleting a post.
+
+    Gets and checks if the post with the specified post_id exists in the
+    database.
+    If found, deletes the post from the database. If the request method is
+    POST,
+    it then redirects to a relevant page based on the context.
+
+    Parameters:
+    post_id (str): The identifier of the post to be deleted.
+
+    Returns:
+    Union[str, Response]: If the post is successfully deleted, redirects to a
+    relevant page based on the context.
+
+    Raises:
+    HTTPException: If the post with the specified post_id is not found, returns
+    a 404 error.
+    """
     # get and check if post exists in database
     post = mongo.db.posts.find_one({"_id": ObjectId(post_id)})
     if post is not None:
         print(post)
         mongo.db.posts.delete_one(post)
         flash("Post deleted", "success")
-        delete_profile= session.pop("delete_profile", None)
+        delete_profile = session.pop("delete_profile", None)
         if delete_profile:
             return redirect(url_for("profile"))
         return redirect(url_for("get_posts"))
@@ -228,17 +344,18 @@ def get_register():
     Returns:
     str: Rendered HTML content for 'register.html' template or redirects to
     the 'profile' route after successful registration.
+
+    Raises:
+    Any exceptions that may occur during the post creation process.
     """
     if request.method == "POST":
         username = request.form.get('username').lower()
         password = request.form.get('password')
-        
         user = mongo.db.users.find_one({'username': username})
-        
         if user:
             flash("User already exists, choose another one", "error")
             return redirect(url_for("get_register"))
-        
+
         register = {
             "username": username,
             "password": generate_password_hash(password)
@@ -258,17 +375,20 @@ def login():
     """
     Route handling function for user login.
 
-    If the request method is POST, this function retrieves user input for
-    the username and password, checks if the username exists, and verifies
-    the password using Flask-Bcrypt's 'check_password_hash' function. If the
-    login is successful, it sets the user to the session cookie and redirects
-    to the 'profile' route.
-
-    If the request method is GET, it renders the 'login.html' template.
+    If the request method is POST, validates the entered username and password
+    against the database. If successful, flashes a success message, creates a
+    user session, and redirects based on any existing redirection session.
+    If the request method is GET, renders the 'login.html' template.
 
     Returns:
-    str: Rendered HTML content for 'login.html' template or redirects to
-    the 'profile' route after successful login.
+    Union[str, Response]: If the login is successful and a redirection session
+    exists, redirects to the relevant page. If the login is successful without
+    a redirection session, redirects to the profile page. If the login is
+    unsuccessful,
+    renders the 'login.html' template.
+
+    Raises:
+    Any exceptions that may occur during the login process.
     """
     if request.method == "POST":
         # Assign form inputs to new variables
@@ -285,7 +405,6 @@ def login():
             blog_url = session.pop("blog_url", None)
             # redirect base on the url session
             if blog_url:
-                # print("I am login if prior redirection: " + session["blog_url"])
                 return redirect(url_for("create_post"))
             return redirect(url_for("profile"))
         else:
@@ -306,13 +425,16 @@ def profile():
     Returns:
     str: Rendered HTML content for 'profile.html' template or redirects to
     the 'login' route.
+
+    Raises:
+    Any exceptions that may occur during the login process.
     """
     if "user" in session:
         image_url = url_for('static', filename='images/post_default.jpg')
         user_id = mongo.db.users.find_one(
             {"username": session["user"]})["username"]
         user_posts = list(mongo.db.posts.find({"author.username": user_id}))
-        return render_template('profile.html', username=user_id.capitalize(), 
+        return render_template('profile.html', username=user_id.capitalize(),
                                post=user_posts, image_url=image_url)
     return redirect(url_for('login'))
 
@@ -322,11 +444,14 @@ def logout():
     """
     Route handling function for user logout.
 
-    Clears the 'user' key from the session to log out the user and
-    redirects to the 'login' route. Displays a success flash message.
+    Logs out the user by clearing all items from the session, flashes a success
+    message, and redirects to the login page.
 
     Returns:
-    str: Redirects to the 'login' route after logging out.
+    Response: Redirects to the login page after logging out.
+
+    Raises:
+    Any exceptions that may occur during the logout process.
     """
     for key in list(session.keys()):
         session.pop(key, None)
@@ -336,11 +461,35 @@ def logout():
 
 @app.errorhandler(404)
 def page_not_found(error):
+    """
+    Error handler for 404 - Page Not Found.
+
+    Renders the '404.html' template with a 404 status code.
+
+    Parameters:
+    error (Exception): The exception associated with the 404 error.
+
+    Returns:
+    Tuple[str, int]: Rendered HTML content for the '404.html' template and
+    a 404 status code.
+    """
     return render_template('404.html'), 404
 
 
 @app.errorhandler(500)
 def internal_server_error(error):
+    """
+    Error handler for 500 - Internal Server Error.
+
+    Renders the '500.html' template with a 500 status code.
+
+    Parameters:
+    error (Exception): The exception associated with the 500 error.
+
+    Returns:
+    Tuple[str, int]: Rendered HTML content for the '500.html' template and
+    a 500 status code.
+    """
     return render_template('500.html'), 500
 
 
