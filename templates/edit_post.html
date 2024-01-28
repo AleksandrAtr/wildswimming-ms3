@@ -1,48 +1,48 @@
 {% extends "base.html" %}
 {% block content %}
-
-<h1 class="center-align">Edit post</h1>
-
-<div class="row">
-    <form class="col s12 m10 offset-m1" method="POST" action="{{url_for('edit_post', post_id=post._id)}}">
-        <div class="card-panel">
-            <!-- title -->
-            <div class="row">
-                <div class="input-field col s12">
-                    <i class="fa-solid fa-user prefix"></i>
-                    <input id="title" name="title" type="text" minlength="5"
-                    maxlength="50" data-length="50" class="validate" value = "{{ post.title }}" required>
-                    <label for="title">Post title</label>
-                    <p>(Minimum 5 and maximum 50 characters)</p>
+    <h1 class="center-align" aria-label="Edit post">Edit post</h1>
+    {% if session.user %}
+        <div class="row">
+            <form class="col s12 m10 offset-m1" method="POST" action="{{url_for('edit_post', post_id=post._id)}}" role="form" aria-labelledby="editPostForm">
+                <div class="card-panel">
+                    <!-- title -->
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <i class="fa-regular fa-circle-check prefix" aria-hidden="true"></i>
+                            <input id="title" name="title" type="text" minlength="5"
+                            maxlength="50" data-length="50" class="validate" value="{{ post.title }}" required aria-label="Enter the post title">
+                            <label for="title">Post title</label>
+                            <p>(Minimum 5 and maximum 50 characters)</p>
+                        </div>
+                    </div>
+                    <!-- content -->
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <i class="fa-regular fa-circle-check prefix" aria-hidden="true"></i>
+                            <textarea id="content" class="materialize-textarea validate" minlength="5"
+                            maxlength="1000" name="content" type="text" data-length="1000" required aria-label="Enter the post content">{{ post.content }}</textarea>
+                            <label for="content">Post content</label>
+                            <p>(Minimum 5 and maximum 1000 characters)</p>
+                        </div>
+                    </div>
+                    <!-- keywords -->
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <i class="fa-regular fa-circle-check prefix" aria-hidden="true"></i>
+                            <input id="keywords" name="keywords" type="text" class="validate" value="{% for item in post.keywords %}{{ item }}{% if not loop.last %}, {% endif %}{% endfor %}" required aria-label="Enter tags separated by commas">
+                            <label for="keywords">Add Tags</label>
+                            <p>(Add relevant tags for this content and separate them with commas. For example: lake swimming, safety)</p>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <!-- content  -->
-            <div class="row">
-                <div class="input-field col s12">
-                    <i class="fa-solid fa-lock prefix"></i>
-                    <textarea id="content" class="materialize-textarea validate" minlength="5"
-                    maxlength="1000" name="content" type="text" data-length="1000" required>{{ post.content }}</textarea>
-                    <label for="content">Post content </label>
-                    <p>(Minimum 5 and maximum 1000 characters)</p>
+                <!-- Update or cancel editing post -->
+                <div class="center-align" role="group" aria-label="Update or cancel editing post"> 
+                    <a href="{{url_for('get_posts')}}" class="btn-large btn2" aria-label="Cancel editing">Cancel editing</a>
+                    <button type="submit" class="btn-large btn2" aria-label="Update post">
+                        Update post <i class="fa-solid fa-pen-to-square"></i>
+                    </button>
                 </div>
-            </div>
-            <!-- keywords  -->
-            <div class="row">
-                <div class="input-field col s12">
-                    <i class="fa-solid fa-lock prefix"></i>
-                    <input id="keywords" name="keywords" type="text" class="validate" value="{% for item in post.keywords %}{{ item }}{% if not loop.last %}, {% endif %}{% endfor %}" required>
-                    <label for="keywords">Add Tags</label>
-                    <p>(Add relevant tags for this content and separate them with commas. For example: lake swimming, safety)</p>
-                </div>
-            </div>
+            </form>   
         </div>
-        <!-- Update or cancel editing post -->
-        <div class="center-align"> 
-            <a href="{{url_for('get_posts')}}"class="btn-large btn2">Cancel editing</a>
-            <button type="submit" class="btn-large btn2">
-                Update post <i class="fa-solid fa-pen-to-square"></i>
-            </button>
-        </div>
-    </form>   
-</div>
+    {% endif %}
 {% endblock %}

@@ -1,41 +1,36 @@
 {% extends "base.html" %}
 {% block content %}
-
-<h1 class="center-align">Log In</h1>
-
-<div class="row">
-    <form class="col s12 m10 offset-m1" method="POST" action="{{ url_for('login') }}">
-        <div class="card-panel">
-            <!-- username -->
-            <div class="row">
-                <div class="input-field col s12">
-                    <i class="fa-solid fa-user prefix"></i>
-                    <input id="username" name="username" type="text" class="validate" required>
-                    <label for="username">Username</label>
+    <h1 class="center-align" aria-label="Log In">Log In</h1>
+    <div class="row">
+        <form class="col s12 m10 offset-m1" method="POST" action="{{ url_for('login') }}">
+            <div class="card-panel">
+                <!-- username -->
+                <div class="row">
+                    <div class="input-field col s12">
+                        <i class="fa-solid fa-user prefix" aria-hidden="true"></i>
+                        <input id="username" name="username" type="text" class="validate" required aria-label="Enter your username">
+                        <label for="username">Username</label>
+                    </div>
+                </div>
+                <!-- password -->
+                <div class="row">
+                    <div class="input-field col s12">
+                        <i class="fa-solid fa-lock prefix" aria-hidden="true"></i>
+                        <input id="password" name="password" type="password" class="validate" required aria-label="Enter your password">
+                        <label for="password">Password</label>
+                    </div>
                 </div>
             </div>
-            <!-- password  -->
-            <div class="row">
-                <div class="input-field col s12">
-                    <i class="fa-solid fa-lock prefix"></i>
-                    <input id="password" name="password" type="password" class="validate" required>
-                    <label for="password">Password</label>
-                </div>
-            </div>
-        </div>
-        <!-- login -->
-            <button type="submit" class="col s12 btn-large btn2">
-                Login <i class="fa-solid fa-right-to-bracket"></i>
-            </button>
-    </form>   
-</div>
-
-<div class="row">
-    <div class="col s12">
-        <p class="center helper">
-            Not registred yet?
-            <a href="{{ url_for('get_register') }}" class="text-darken-4 link">Create Account</a>
-        </p>
+            <!-- login -->
+            <button type="submit" class="col s12 btn-large btn2" aria-label="Log In">Login <i class="fa-solid fa-right-to-bracket"></i></button>
+        </form>
     </div>
-</div>
+    <div class="row">
+        <div class="col s12">
+            <p class="center helper">
+                Not registered yet?
+                <a href="{{ url_for('get_register') }}" class="text-darken-4 link" role="link" aria-label="Create an account">Create Account</a>
+            </p>
+        </div>
+    </div>
 {% endblock %}

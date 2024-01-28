@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% block addCont %}
-    <div class="contained-image">
+    <div class="contained-image" role="img" aria-label="Nature and Water Scene">
         {% block content %}
         <div class="wrapper">
             <div class="container1 hero-image">
@@ -22,7 +22,7 @@
         </div>
         <div class="row">
             <div class="col s12 center">
-                <a href="{{ url_for('get_posts') }}" class="read-blog btn-large btn2">
+                <a href="{{ url_for('get_posts') }}" role="link" aria-label="Go to blog page" class="read-blog btn-large btn2">
                     Read Blog  <i class="fa-brands fa-readme"></i>
                 </a>
             </div>

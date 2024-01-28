@@ -1,94 +1,94 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
-        integrity="" crossorigin="anonymous" type="text/css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
-        type="text/css">
-    <link href="https://fonts.googleapis.com/css2?family=Lato&family=Roboto+Slab&display=swap" rel="stylesheet">
-    <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='images/favicon-32x32.png')}}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" type="text/css">
-    {% block styles %}
-    {% endblock %}
-    <title>Wild Swimming</title>
-</head>
-<body>
-    <header>
-        <div class="navbar-fixed">
-            <nav>
-                <!-- browser nav -->
-                <div class="nav-wrapper blue-grey darken-3">
-                    <a href="{{ url_for('home') }}" class="brand-logo left">Wild Swimmer</a>
-                    <a href="{{ url_for('home') }}" data-target="mobile-demo" class="sidenav-trigger right"><i class="fas fa-bars"></i></a>
-                    <ul class="right hide-on-med-and-down nav-link">
-                        <li class="{% if request.path == '/home' %}active{% endif %}"><a href="{{ url_for('home') }}">Home</a></li>
-                        <li class="{% if request.path == '/get_posts' %}active{% endif %}"><a href="{{ url_for('get_posts') }}">Blog</a></li>
-                        <!-- dynamic sorting on to logged in and logged out -->
-                        {% if session.user %}
-                            <li class="{% if request.path == '/profile' %}active{% endif %}"><a href="{{ url_for('profile') }}">Profile</a></li>
-                            <li class="{% if request.path == '/create_post' %}active{% endif %}"><a href="{{ url_for('create_post') }}">Create Post</a></li>
-                            <li><a href="{{ url_for('logout') }}">Logout</a></li>
-                        {% else %}
-                            <li class="{% if request.path == '/login' %}active{% endif %}"><a href="{{ url_for('login') }}">Login</a></li>
-                            <li class="{% if request.path == '/get_register' %}active{% endif %}"><a href="{{ url_for('get_register') }}">Register</a></li>
-                        {% endif %}
-                    </ul>
-                </div>
-            </nav>
-        </div>
-        <!-- mobile nav -->
-        <ul class="sidenav" id="mobile-demo">
-            <li class="{% if request.path == '/home' %}active{% endif %}"><a href="{{ url_for('home') }}">Home</a></li>
-            <li class="{% if request.path == '/get_posts' %}active{% endif %}"><a href="{{ url_for('get_posts') }}">Blog</a></li>
-            <!-- dynamic sorting on to logged in and logged out -->
-            {% if session.user %}
-                <li class="{% if request.path == '/profile' %}active{% endif %}"><a href="{{ url_for('profile') }}">Profile</a></li>
-                <li class="{% if request.path == '/create_post' %}active{% endif %}"><a href="{{ url_for('create_post') }}">Create Post</a></li>
-                <li><a href="{{ url_for('logout') }}">Logout</a></li>
-            {% else %}
-                <li class="{% if request.path == '/login' %}active{% endif %}"><a href="{{ url_for('login') }}">Login</a></li>
-                <li class="{% if request.path == '/get_register' %}active{% endif %}"><a href="{{ url_for('get_register') }}">Register</a></li>
-            {% endif %}
-        </ul>
-    </header>
-    <!-- Flash messages section -->
-    <section class="flash-message">
-    <!-- display warning messages -->
-    {% with messages = get_flashed_messages(with_categories=true) %}
-        {% if messages %}
-            <ul class="flash">
-                {% for category, message in messages %}
-                    <li class="{{ category }}">{{ message }}</li>
-            {% endfor %}
-            </ul>
-        {% endif %}
-    {% endwith %}
-    </section>
-
-    <main>
-        {% block addCont %}
-        <div class="wrapper">
-            <div class="container1">
-                {% block content %}
-                {% endblock %}
-            </div>
-        </div>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="author" content="Aleksandr Atr">
+        <meta name="description"
+        content="Embark on a journey of discovery with Wild Swimming Hub, where the beauty of nature and the joy of swimming come together in perfect harmony. Join our community, embrace the freedom of open waters, and let the adventure begin. Open Water swimmers, join the community, share your stories, and share unforgettable experiences.>
+        <meta name="keywords" content="Wild swimming, Open-water swimming, Natural swimming, Outdoor swimming, Swim spots, Swimming locations, Swimming techniques, Water safety, Swim gear reviews, Community stories, Swim events, Aquatic adventures">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+            integrity="" crossorigin="anonymous" type="text/css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+            type="text/css">
+        <link href="https://fonts.googleapis.com/css2?family=Lato&family=Roboto+Slab&display=swap" rel="stylesheet">
+        <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='images/favicon-32x32.png')}}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" type="text/css">
+        {% block styles %}
         {% endblock %}
-    </main>
-
-    <footer class="footer blue-grey darken-3">
-        <div >
-            <!-- Your footer content goes here -->
-            <p class="helper">Fictional site created for educational purpose</p>
-        </div>
-    </footer>
-    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
-    {% block scripts %}
-    {% endblock %}
-</body>
+        <title>Wild Swimming</title>
+    </head>
+    <body>
+        <header>
+            <div class="navbar-fixed">
+                <nav role="navigation" aria-label="Main Navigation">
+                    <!-- browser nav -->
+                    <div class="nav-wrapper blue-grey darken-3">
+                        <a href="{{ url_for('home') }}" class="brand-logo left" aria-label="Site logo - Go to homepage" role="link">Wild Swimmer</a>
+                        <a href="{{ url_for('home') }}" data-target="mobile-demo" class="sidenav-trigger right"><i class="fas fa-bars"></i></a>
+                        <ul class="right hide-on-med-and-down nav-link">
+                            <li class="{% if request.path == '/home' %}active{% endif %}"><a href="{{ url_for('home') }}" role="link" aria-label="Go to homepage">Home</a></li>
+                            <li class="{% if request.path == '/get_posts' %}active{% endif %}"><a href="{{ url_for('get_posts') }}" role="link" aria-label="Go to blog page">Blog</a></li>
+                            <!-- dynamic sorting on to logged in/logged out status -->
+                            {% if session.user %}
+                                <li class="{% if request.path == '/profile' %}active{% endif %}"><a href="{{ url_for('profile') }}" role="link" aria-label="Go to profile page">Profile</a></li>
+                                <li class="{% if request.path == '/create_post' %}active{% endif %}"><a href="{{ url_for('create_post') }}" role="link" aria-label="Go to create post page">Create Post</a></li>
+                                <li><a href="{{ url_for('logout') }}" role="link" aria-label="Logout" >Logout</a></li>
+                            {% else %}
+                                <li class="{% if request.path == '/login' %}active{% endif %}"><a href="{{ url_for('login') }}" role="link" aria-label="Go to login page">Login</a></li>
+                                <li class="{% if request.path == '/get_register' %}active{% endif %}"><a href="{{ url_for('get_register') }}" role="link" aria-label="Go to register page">Register</a></li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+            <!-- mobile nav -->
+            <ul class="sidenav" id="mobile-demo">
+                <li class="{% if request.path == '/home' %}active{% endif %}"><a href="{{ url_for('home') }}" role="link" aria-label="Go to homepage">Home</a></li>
+                <li class="{% if request.path == '/get_posts' %}active{% endif %}"><a href="{{ url_for('get_posts') }}" role="link" aria-label="Go to blog page">Blog</a></li>
+                <!-- dynamic sorting on to logged in and logged out -->
+                {% if session.user %}
+                    <li class="{% if request.path == '/profile' %}active{% endif %}"><a href="{{ url_for('profile') }}" role="link" aria-label="Go to profile page">Profile</a></li>
+                    <li class="{% if request.path == '/create_post' %}active{% endif %}"><a href="{{ url_for('create_post') }}" role="link">Create Post</a></li>
+                    <li><a href="{{ url_for('logout') }}" role="link" aria-label="Logout">Logout</a></li>
+                {% else %}
+                    <li class="{% if request.path == '/login' %}active{% endif %}"><a href="{{ url_for('login') }}" role="link" aria-label="Go to login page">Login</a></li>
+                    <li class="{% if request.path == '/get_register' %}active{% endif %}"><a href="{{ url_for('get_register') }}" role="link" aria-label="Go to register page">Register</a></li>
+                {% endif %}
+            </ul>
+        </header>
+        <!-- Flash messages section -->
+        <section class="flash-message" role="alert">
+        <!-- display warning messages -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <ul class="flash">
+                    {% for category, message in messages %}
+                        <li class="{{ category }}">{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
+        </section>
+        <main role="main">
+            {% block addCont %}
+            <div class="wrapper">
+                <div class="container1">
+                    {% block content %}
+                    {% endblock %}
+                </div>
+            </div>
+            {% endblock %}
+        </main>
+        <footer class="footer blue-grey darken-3" role="contentinfo">
+            <div>
+                <p class="helper">Fictional site created for educational purpose</p>
+            </div>
+        </footer>
+        <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+        <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+        {% block scripts %}
+        {% endblock %}
+    </body>
 </html>
