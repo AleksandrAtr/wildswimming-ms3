@@ -289,7 +289,7 @@ def edit_post(post_id):
     if post is not None:
         return render_template("edit_post.html", post=post)
     else:
-        return "Post not found", 404
+        abort(404)
 
 
 @app.route("/delete_post/<post_id>", methods=["GET", "POST"])
@@ -401,7 +401,7 @@ def login():
             flash("Login successful!", "success")
             # create user session
             session["user"] = request.form.get("username").lower()
-            # check if redirection session exists
+            # check if url redirection session exists
             blog_url = session.pop("blog_url", None)
             # redirect base on the url session
             if blog_url:
@@ -429,10 +429,10 @@ def profile():
     Raises:
     Any exceptions that may occur during the login process.
     """
-    if "user" in session:
-        image_url = url_for('static', filename='images/post_default.jpg')
-        user_id = mongo.db.users.find_one(
+    user_id = mongo.db.users.find_one(
             {"username": session["user"]})["username"]
+    if user_id:
+        image_url = url_for('static', filename='images/post_default.jpg')
         user_posts = list(mongo.db.posts.find({"author.username": user_id}))
         return render_template('profile.html', username=user_id.capitalize(),
                                post=user_posts, image_url=image_url)
