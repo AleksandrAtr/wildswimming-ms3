@@ -4,14 +4,34 @@ font-family: 'Lato', sans-serif;
 font-family: 'Roboto Slab', serif; 
 */
 
-
-/* control sidenave width */
+/* ------------------------------------------- navigation */
 .sidenav {
     width: 150px;
 }
 
 nav ul li.active {
     background-color: rgba(0,0,0,0.5);
+}
+
+.nav-wrapper {
+    padding: 0 10px;
+}
+
+.nav-link li a {
+    font-size: 1.25rem;
+}
+
+nav ul a:hover {
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
+
+/* ------------------------------------------- global element dettings /structure */
+html {
+    background-image: url(/static/images/water1.jpg);
+    background-position: center;
+    background-size: cover;
+    background-color: rgba(96, 125, 139, 0.9);
 }
 
 html, body {
@@ -33,47 +53,14 @@ body {
     width: 100%;
 }
 
-.flash-message {
-    max-width: 850px;
-    color: black;
-    font-size: 2rem;
-    text-align: center;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-
-.flash li{
-    padding: 0px 50px;
-}
-
-.success {
-    background-color: rgba(173, 237, 100, 0.856);
-}
-
-.error {
-    background-color: rgba(237, 116, 100, 0.925);
-}
-
-botton {
-    font-family: 'Roboto Slab', serif;
-    background-color: #263238;
+.page-footer {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    color: #fff;
 }
 
 p {
     font-family: 'Lato', sans-serif;
-}
-
-span {
-    font-family: 'Lato', sans-serif;
-}
-
-h1, h2, h3 {
-    color: aliceblue;
-    font-family: 'Lato', sans-serif;
-    font-size: 2.92rem;
-    margin-block-start: 1em;
-    margin-block-end: 1em;
 }
 
 .wrapper {
@@ -89,16 +76,56 @@ h1, h2, h3 {
     z-index: 99;
 }
 
+.read-blog {
+    margin-top: 25px;
+    margin-bottom: 100px;
+    max-width: 850px;
+}
+
+h1, h2, h3 {
+    color: aliceblue;
+    font-family: 'Lato', sans-serif;
+    font-size: 2.92rem;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+}
+
+span {
+    font-family: 'Lato', sans-serif;
+}
+
+/* ------------------------------------------- alert messages / feedback */
+.flash-message {
+    max-width: 850px;
+    color: black;
+    font-size: 2rem;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.flash li{
+    padding: 0px 50px;
+}
+
+.success {
+    background-color: rgba(173, 237, 100, 0.856);
+}
+
+.error {
+    background-color: rgba(237, 116, 100, 0.925);
+}
+
+/* ------------------------------------------- buttons / links */
+
+botton {
+    font-family: 'Roboto Slab', serif;
+    background-color: #263238;
+}
+
 .link {
     color: aliceblue;
     text-decoration: underline;
-}
-
-html {
-    background-image: url(/static/images/water1.jpg);
-    background-position: center;
-    background-size: cover;
-    background-color: rgba(96, 125, 139, 0.9);
 }
 
 .tags {
@@ -124,7 +151,6 @@ html {
     background-color: rgba(31, 39, 45, 1);
 }
 
-
 .btn2 {
     background-color: #455a64;
     margin: 5px;
@@ -133,6 +159,8 @@ html {
 .btn2:hover {
     background-color: #263238;
 }
+
+/* ------------------------------------------- hero image */
 
 .cover {
     font-size: 1.05rem;
@@ -166,35 +194,9 @@ html {
     max-width: 850px;
 }
 
-.read-blog {
-    margin-top: 25px;
-    margin-bottom: 100px;
-    max-width: 850px;
-}
-
-.page-footer {
-    padding-top: 20px;
-    padding-bottom: 20px;
-    color: #fff;
-}
-
-.nav-wrapper {
-    padding: 0 10px;
-}
-
-.nav-link li a {
-    font-size: 1.25rem;
-}
-
-nav ul a:hover {
-    background-color: rgba(0, 0, 0, 0.6);
-}
-
-
-
 /* styles for devices with screen width less than or equal to 375 pixels */
 /* --------------------------------------------Media Query Styles */
-/* RESPONSIVE design section------------------------------------------------------*/
+/* RESPONSIVE design section---------------------------------------------*/
 @media all and (max-width: 375px) {
 
     nav .brand-logo {
