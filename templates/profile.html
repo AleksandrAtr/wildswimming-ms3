@@ -24,22 +24,10 @@
                     </div>
                     {% if session.user == post.author.username %}
                         <div class="card-action center">
-                            <a data-target="delete{{ post._id }}" class="blue-grey darken-3 btn-small modal-trigger" aria-label="Delete this post">Delete</a>
+                            <a  id="modal-delete" post-id="{{ post._id }}" href="#modal1" class="blue-grey darken-3 btn-small modal-trigger" aria-label="Delete this post">Delete</a>
                             <a href="{{ url_for('url_edit', post_id=post._id, template='edit_profile') }}" class="blue-grey darken-3 btn-small" aria-label="Edit this post">Edit</a>
                         </div>
                     {% endif %}
-                </div>
-                <!-- delete post (Modal) -->
-                <div id="delete{{ post._id }}" class="modal" role="dialog" aria-labelledby="deleteConfirmation">
-                    <div class="modal-content center">
-                        <h4 id="deleteConfirmation">Confirm Deletion</h4>
-                        <p>Are you sure you want to delete this post?</p>
-                        <span></span>
-                    </div>
-                    <div class="modal-fixed-footer center">
-                        <a href="{{ url_for('url_delete', post_id=post._id, template='delete_profile') }}" class="btn-large btn2" aria-label="Confirm deletion">Delete</a>
-                        <a href="{{ url_for('get_posts') }}" class="btn-large btn2 cancel-btn" aria-label="Cancel deletion">Cancel</a>
-                    </div>
                 </div>
             {% endfor %}
         {% else %}
@@ -55,6 +43,18 @@
           </div>
         {% endif %}
             
+    </div>
+        <!-- delete post (Modal) -->
+        <div id="modal1" class="modal" role="dialog">
+            <div class="modal-content center">
+                <h4>Confirm Deletion</h4>
+                <p>Are you sure you want to delete this post?</p>
+                <span></span>
+            </div>
+        <div class="modal-fixed-footer center">
+            <a id="delete-post" class="btn-large btn2" aria-label="Confirm deletion">Delete</a>
+            <a href="{{ url_for('get_posts') }}" class="btn-large btn2 cancel-btn" aria-label="Cancel deletion">Cancel</a>
+        </div>
     </div>
 </div>
 {% endblock %}
