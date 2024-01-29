@@ -197,10 +197,10 @@ botton {
 /* styles for devices with screen width less than or equal to 375 pixels */
 /* --------------------------------------------Media Query Styles */
 /* RESPONSIVE design section---------------------------------------------*/
-@media all and (max-width: 375px) {
+@media all and (max-width: 400px) {
 
     nav .brand-logo {
-        font-size: 1.5rem;
+        font-size: 1.5rem !important;
     }
 
     h1,
