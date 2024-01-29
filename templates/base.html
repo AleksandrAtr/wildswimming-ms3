@@ -25,22 +25,22 @@
     <body>
         <header>
             <div class="navbar-fixed">
-                <nav role="navigation" aria-label="Main Navigation">
+                <nav aria-label="Main Navigation">
                     <!-- browser nav -->
                     <div class="nav-wrapper blue-grey darken-3">
-                        <a href="{{ url_for('home') }}" class="brand-logo left" aria-label="Site logo - Go to homepage" role="link">Wild Swimmer</a>
+                        <a href="{{ url_for('home') }}" class="brand-logo left" aria-label="Site logo - Go to homepage">Wild Swimmer</a>
                         <a href="{{ url_for('home') }}" data-target="mobile-demo" class="sidenav-trigger right"><i class="fas fa-bars"></i></a>
                         <ul class="right hide-on-med-and-down nav-link">
-                            <li class="{% if request.path == '/home' %}active{% endif %}"><a href="{{ url_for('home') }}" role="link" aria-label="Go to homepage">Home</a></li>
-                            <li class="{% if request.path == '/get_posts' %}active{% endif %}"><a href="{{ url_for('get_posts') }}" role="link" aria-label="Go to blog page">Blog</a></li>
+                            <li class="{% if request.path == '/home' %}active{% endif %}"><a href="{{ url_for('home') }}" aria-label="Go to homepage">Home</a></li>
+                            <li class="{% if request.path == '/get_posts' %}active{% endif %}"><a href="{{ url_for('get_posts') }}" aria-label="Go to blog page">Blog</a></li>
                             <!-- dynamic sorting on to logged in/logged out status -->
                             {% if session.user %}
-                                <li class="{% if request.path == '/profile' %}active{% endif %}"><a href="{{ url_for('profile') }}" role="link" aria-label="Go to profile page">Profile</a></li>
-                                <li class="{% if request.path == '/create_post' %}active{% endif %}"><a href="{{ url_for('create_post') }}" role="link" aria-label="Go to create post page">Create Post</a></li>
-                                <li><a href="{{ url_for('logout') }}" role="link" aria-label="Logout" >Logout</a></li>
+                                <li class="{% if request.path == '/profile' %}active{% endif %}"><a href="{{ url_for('profile') }}" aria-label="Go to profile page">Profile</a></li>
+                                <li class="{% if request.path == '/create_post' %}active{% endif %}"><a href="{{ url_for('create_post') }}" aria-label="Go to create post page">Create Post</a></li>
+                                <li><a href="{{ url_for('logout') }}" aria-label="Logout" >Logout</a></li>
                             {% else %}
-                                <li class="{% if request.path == '/login' %}active{% endif %}"><a href="{{ url_for('login') }}" role="link" aria-label="Go to login page">Login</a></li>
-                                <li class="{% if request.path == '/get_register' %}active{% endif %}"><a href="{{ url_for('get_register') }}" role="link" aria-label="Go to register page">Register</a></li>
+                                <li class="{% if request.path == '/login' %}active{% endif %}"><a href="{{ url_for('login') }}" aria-label="Go to login page">Login</a></li>
+                                <li class="{% if request.path == '/get_register' %}active{% endif %}"><a href="{{ url_for('get_register') }}" aria-label="Go to register page">Register</a></li>
                             {% endif %}
                         </ul>
                     </div>
@@ -48,16 +48,16 @@
             </div>
             <!-- mobile nav -->
             <ul class="sidenav" id="mobile-demo">
-                <li class="{% if request.path == '/home' %}active{% endif %}"><a href="{{ url_for('home') }}" role="link" aria-label="Go to homepage">Home</a></li>
-                <li class="{% if request.path == '/get_posts' %}active{% endif %}"><a href="{{ url_for('get_posts') }}" role="link" aria-label="Go to blog page">Blog</a></li>
+                <li class="{% if request.path == '/home' %}active{% endif %}"><a href="{{ url_for('home') }}" aria-label="Go to homepage">Home</a></li>
+                <li class="{% if request.path == '/get_posts' %}active{% endif %}"><a href="{{ url_for('get_posts') }}" aria-label="Go to blog page">Blog</a></li>
                 <!-- dynamic sorting on to logged in and logged out -->
                 {% if session.user %}
-                    <li class="{% if request.path == '/profile' %}active{% endif %}"><a href="{{ url_for('profile') }}" role="link" aria-label="Go to profile page">Profile</a></li>
-                    <li class="{% if request.path == '/create_post' %}active{% endif %}"><a href="{{ url_for('create_post') }}" role="link">Create Post</a></li>
-                    <li><a href="{{ url_for('logout') }}" role="link" aria-label="Logout">Logout</a></li>
+                    <li class="{% if request.path == '/profile' %}active{% endif %}"><a href="{{ url_for('profile') }}" aria-label="Go to profile page">Profile</a></li>
+                    <li class="{% if request.path == '/create_post' %}active{% endif %}"><a href="{{ url_for('create_post') }}">Create Post</a></li>
+                    <li><a href="{{ url_for('logout') }}" aria-label="Logout">Logout</a></li>
                 {% else %}
-                    <li class="{% if request.path == '/login' %}active{% endif %}"><a href="{{ url_for('login') }}" role="link" aria-label="Go to login page">Login</a></li>
-                    <li class="{% if request.path == '/get_register' %}active{% endif %}"><a href="{{ url_for('get_register') }}" role="link" aria-label="Go to register page">Register</a></li>
+                    <li class="{% if request.path == '/login' %}active{% endif %}"><a href="{{ url_for('login') }}" aria-label="Go to login page">Login</a></li>
+                    <li class="{% if request.path == '/get_register' %}active{% endif %}"><a href="{{ url_for('get_register') }}" aria-label="Go to register page">Register</a></li>
                 {% endif %}
             </ul>
         </header>
@@ -74,7 +74,7 @@
             {% endif %}
         {% endwith %}
         </section>
-        <main role="main">
+        <main>
             {% block addCont %}
             <div class="wrapper">
                 <div class="container1">
@@ -84,7 +84,7 @@
             </div>
             {% endblock %}
         </main>
-        <footer class="footer blue-grey darken-3" role="contentinfo">
+        <footer class="footer blue-grey darken-3">
             <div>
                 <p class="helper">Fictional site created for educational purpose</p>
             </div>
