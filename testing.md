@@ -115,7 +115,6 @@ Manual testing has been undertaken for the wild swimming website. Below is the s
 | Responsive| Check if the page is responsive                   | - Resize the browser window                                          | Page content adjusts appropriately for different screen sizes | Pass      |                                                     |
 | Accessibility| Check if the page is accessible                 | - Use a screen reader                | No accessibility issues are reported                          | Pass      |                                                     |
 
-
 ### Login Page
 <br>
 
@@ -129,7 +128,6 @@ Manual testing has been undertaken for the wild swimming website. Below is the s
 | Accessibility| Check if the page is accessible  | - Use a screen reader | No accessibility issues are reported       | Pass      |                                |
 | Registration| Check if the "Create Account" link works | 1. Click on the "Create Account" link   | User is redirected to the registration page | Pass      |                                |
 |           |                                    | 2. Verify the presence of the registration form | Registration form is displayed               | Pass      |                                |
-
 
 ### Registration Page
 <br>
@@ -148,6 +146,30 @@ Manual testing has been undertaken for the wild swimming website. Below is the s
 
 
 
+## Validation checks
+### W3C HTML
+[W3C HTML Validator](https://validator.w3.org/nu/) has been used to test HTML. The website has no errors. 
+<br>
 
+![Link to the screenshots file](static/images/w3c-html-1.png)
+![Link to the screenshots file](static/images/w3c-html-2.png)
+![Link to the screenshots file](static/images/w3c-html-3.png)
+![Link to the screenshots file](static/images/w3c-html-4.png)
 
+### CSS
+[W3C CSS Validator](https://jigsaw.w3.org/css-validator/) has been used to test Cascading Style Sheets. The website has no errors. The file that has been checked is [script.js](/static/css/style.csss).
+<br>
 
+![Link to the screenshots file](static/images/w3c-css.png)
+
+### Javascript Validation
+[ JSHint](https://jshint.com/) has been used to test javascript. The website has no errors. The file that has been checked is [script.js](/static/js/script.js).
+<br>
+
+![Link to the screenshots file](static/images/jshint.png)
+
+### Python Validation
+[ CI Python linter](https://pep8ci.herokuapp.com/) has been used to the javascript. The website has no errors. The file that has been checked is [app.py](/app.py).
+<br>
+
+![Link to the screenshots file](static/images/ci_python_linter.png)

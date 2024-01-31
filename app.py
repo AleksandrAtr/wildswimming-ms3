@@ -400,7 +400,7 @@ def login():
         if user and check_password_hash(user['password'], password):
             flash("Login successful!", "success")
             # create user session
-            session["user"] = request.form.get("username").lower()
+            session["user"] = user['username']
             # check if url redirection session exists
             blog_url = session.pop("blog_url", None)
             # redirect base on the url session
