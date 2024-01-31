@@ -6,17 +6,54 @@ The fictional project is a  Wild Swimming platform for outdoor swimming lovers. 
  ![site on different devices](static/images/mockup.png)
 <br>
 
-## **Table of contents**
-* [Project overview](#Project-Overview)
+# Table of contents
+* [Project Overview](#project-overview)
+    * [Wild Swimming](#wild-swimming)
+    * [Table of contents](#table-of-contents)
 * [Project Planning](#project-planning)
+    * [Target Audiences](#target-audiences)
+    * [Website business goals](#website-business-goals)
+    * [User Stories](#user-stories)
+    * [Agile development](#agile-development)
+    * [Minimally viable product (MVP) for the project submission](#minimally-viable-product-mvp-for-the-project-submission)
+    * [Wireframes](#wireframes)
+    * [Database](#database)
+    * [Suggested future improvements](#suggested-future-improvements)
+    * [Website colour palette](#website-colour-palette)
+    * [Typography](#typography)
+* [Main Features](#main-features)
+    * [Navigation bar](#navigation-bar)
+    * [Footer](#footer)
+    * [Home Page Overview](#home-page-overview)
+    * [Blog Page Overview](#blog-page-overview)
+    * [Profile Page Overview](#profile-page-overview)
+    * [Create Post Page Overview](#create-post-page-overview)
+    * [Login Page Overview](#login-page-overview)
+    * [Register Page Overview](#register-page-overview)
+    * [Other Website Functionality Overview](#other-website-functionality-overview)
+* [Technology](#technology)
+    * [Python Modules used](#python-modules-used)
+* [Testing](#testing)
+* [Bugs](#bugs)
+    * [Bugs Report Table](#bugs-report-table)
+* [Deployment](#deployment)
+    * [Deployment to Heroku](#deployment-to-heroku)
+    * [Forking the GitHub Repository](#forking-the-github-repository)
+    * [Making a Local Clone](#making-a-local-clone)
+    * [Create non-relational database](#create-non-relational-database)
+* [Version Control](#version-control)
+* [Credits](#credits)
+    * [Website resources](#website-resources)
+    * [Website development](#website-development)
+    * [Personal appreciation](#personal-appreciation)
 
-## **Project Planning**
+## Project Planning
 
-### **Target Audiences**
+### Target Audiences
 This platform is tailored for outdoor swimming enthusiasts of all levels, from beginners to seasoned adventurers. It's for anyone who enjoys exploring natural waters, discovering new swim spots, and embracing the thrill of wild swimming. For people seeking safety tips, eager to share swimming experiences, or simply looking to connect with a passionate community that shares a love for outdoor swimming, the platform is to support and inspire your aquatic adventures.
 <br>
 
-### **Website business goals**
+### Website business goals
 - User Engagement
 - Community Growth
 - Monetization
@@ -26,7 +63,7 @@ This platform is tailored for outdoor swimming enthusiasts of all levels, from b
 - Social media presence
 - Education and safety impact/content delivery
 
-### **User Stories**
+### User Stories
 
 | Issue ID | User Story |
 |----------|------------|
@@ -55,7 +92,6 @@ This platform is tailored for outdoor swimming enthusiasts of all levels, from b
 | [#23](https://github.com/AleksandrAtr/wildswimming-ms3/issues/23) | As an admin, I want to organize or categorize blog posts into specific topics, tags, or categories. |
 | [#24](https://github.com/AleksandrAtr/wildswimming-ms3/issues/24) | As an admin, I want to manage access permissions for different user roles (e.g., moderator, editor). |
 
-
 ### Agile development
 User stories have been created in the GitHub Projects - links to the stories are provided in the [User Stories](#user-stories) table in the Issue ID column. The user stories have been split into categories using the MoSCoW prioritization method -
 - Must-have
@@ -83,8 +119,7 @@ Screenshot of the board -
 ![](static/images/agile.png)
 <br>
 
-
-### **Minimally viable product (MVP) for the project submission**
+### Minimally viable product (MVP) for the project submission
 #### Unregistered users
 - Home page
 - Blog Page
@@ -98,7 +133,7 @@ Screenshot of the board -
 - Create Post
 - Logout
 
-### **Wireframes**
+### Wireframes
 #### High level website design desktop - 
 <br>
  
@@ -131,28 +166,28 @@ Screenshot of the board -
 ![](static/images/flow.png)
 <br>
 
-### **Database**
+### Database
 A database schema was created based on the user stories during the planning stage. For the scheme development, a non-relational database, MongoDB, was used.
 
 #### High-level database schema - 
 ![](static/images/database-s.png)
 <br>
 
-### **Suggested future improvements**
+### Suggested future improvements
 For future implementations, refer to the Should & Could Have items in the User Stories in the GitHub projects. [Take me to the Agile development section](#agile-development).
 
-### **Website colour palette**
+### Website colour palette
 The colour scheme represented the natural elements of wild swimming, such as open bodies of water, riverbanks, rocks, tree trunks, and sunset/sunrise water reflections. 
 ![](static/images/colours.png)
 by [coolars](https://coolors.co/
 )
-### **Typography**
+### Typography
 For the website design, several fonts are used:
 
 - All links and buttons are set to "Roboto", part of the sons-serif family. The font was chosen following research on the most readable font family for buttons and labels.
 - All paragraph, headings, spans text uses Lato Google font, a part of the sans-serif family that provides a clean, modern look.
 
-## **Main Features**
+## Main Features
 At the MVP stage, the website has two layouts:
 - Users not logged in can see - Home, Blog, Login, and Register
 - Logged-in users can see - Home, Blog, Profile, Create Post, and Logout
@@ -167,7 +202,7 @@ The navigation bar and footer repeat on all pages.
 
 The design is responsive on all pages, providing usability on different screen size devices.
 
-### **Navigation bar**
+### Navigation bar
 It is built to give users easy and consistent website page access. The active page is highlighted to provide current page feedback.
 
 The Navigation bar consists of the following:
@@ -184,13 +219,12 @@ The Navigation bar consists of the following:
 ![](static/images/navbar-me.png)
 <br>
 
-### **Footer**
+### Footer
 The footer's position is at the bottom of the screen. It provides a placeholder for future features.
 
 #### Typical view
 ![](static/images/footer.png)
 <br>
-
 
 ### Home Page Overview
 The home page is structured with user-friendly components, including a navigation bar for seamless navigation, a captivating hero image, an informative section with additional site details, and a concluding footer.
@@ -235,7 +269,6 @@ The "Edit" button redirects the user to an edit post page with a layout similar 
 The "Delete" button triggers a confirmation modal, seeking user confirmation for post deletion. Users can choose to proceed or cancel the deletion action.
 Editing and Deleting Posts:
 The "Cancel" button in the editing and deleting post actions conveniently returns users to the main Blog page, ensuring a smooth and cohesive user experience.
-
 
 #### Desktop view
 ![](static/images/blog1-df.png)
@@ -285,7 +318,6 @@ The Create Post page empowers users to compose and submit their posts seamlessly
 ![](static/images/create-edit1-mf.png)
 <br>
 
-
 ### Login Page Overview
 The login page serves as the gateway for users to access their accounts. The layout comprises essential elements, including username and password inputs, a Login Button, and a convenient link to the registration page for unregistered users.
 
@@ -334,7 +366,7 @@ These messages offer users clear and immediate insights into their actions, cont
 <br>
 
 
-## **Technology**
+## Technology
 The website has been built using the following tech:
 * HTML5 - for content and structure.
 * CSS3 - for styling.
@@ -375,9 +407,18 @@ The following tools have been used during the development:
 - MongoDB - used for data management / storage (non-relational database)
 
 # Testing
+For testing please the [Testing](/TESTING.md) documentation.
+<br>
 
-For testing please the [Testing](/testing.md) documentation.
-<br><br>
+# Bugs
+### Bugs Report Table
+
+| Bug name/File | Problem | Problem Description | Solution |
+| --- | --- | --- | --- |
+| Register.html | Input fields on the register form don't align. | The div element with class "row" wraps the username input and label, and another div element with the same class. The second div element contains password input and the corresponding label. The class "row" style applies to the password input twice, particularly the margin-left, which creates a misalignment with the username input field.  | Move the closing div element tag of the username input so it only includes the Username input and associated label. Thus, the Username, Password, and corresponding labels shall be wrapped in separate div elements. |
+| Base.html | Current page feedback | Highlighted navlink displays incorrect active page. | Jinja's conditional statement for applying the "Active" class was set to the wrong links. The solution was to apply the code for the active class to the corresponding pages. |
+| Profile.html | Edit/Delete post Cancel button | The "Cancel" button on the Profile page, used during post edit or delete operations, incorrectly redirects users to the Blog page instead of keeping them on the Profile page. | Due to the lack of time, this bug has been officially logged in the GitHub Projects and is scheduled for resolution in the upcoming development cycle. Potential solutions include adjusting routing or modifying the URL structure to align with the functions of Delete/Edit. Alternatively, implementing a JavaScript event listener combined with redirection code can effectively address the problem, ensuring a smoother and expected user experience. |
+<br>
 
 # Deployment
 
@@ -385,12 +426,12 @@ For testing please the [Testing](/testing.md) documentation.
 
 To deploy to Heroku:
 1. In GitPod CLI, the root directory of the project, run:
- <br>pip3 freeze --local > requirements.txt<br>
+ <br>```pip3 freeze --local > requirements.txt```<br>
     to create a requirements.txt file containing project dependencies.
 2. In the Gitpod project workspace root directory, create a new file called Procfile, with capital 'P'.
-    Open the Procfile. Inside the file, check that <br>web: python3 app.py<br> has been added when creating the file
+    Open the Procfile. Inside the file, check that <br>```web: python3 app.py```<br> has been added when creating the file
     Save the file.
-3. Push the 2 new files to the GitHub repository
+3. Push the 2 new files to the GitHub repository.
 4. Login to Heroku, select Create new app, add the name for your app and choose your closest region.
 5. Navigate to the Deploy tab on Heroku dashboard and select Github, search for your repository and click 'connect'.
 6. Navigate to the settings tab, click reveal config vars and input the following:
@@ -462,17 +503,10 @@ $ git clone https://github.com/YOUR-USERNAME/YOUR-REPOSITORY
 <br>
 
 ## Version Control
+Version control is essential for software development. Git and GitHub are popular tools used for this purpose. Repositories are central folders that store project elements. You will have a local (on your computer) and online copy on GitHub. In the terminal of your development environment, use ```Git add -A``` to add all files with changes to the staging area, then ```Git commit -m "version description text"``` to solidify the changes as a new repository version. Finally, use ```Git push``` to update the online copy.
+<br>
 
-Workflow controlled using Git and GitHub. It helps you track different versions of your code and collaborate with other developers. Version control allows you to keep track of your work and helps you to easily explore the changes you have made.
-
-You can think of a repository as a “main folder”, everything associated with a specific project should be kept in a repo for that project.
-You will have a local copy (on your computer) and an online copy (on GitHub) of all the files in the repository.
-
-Once Changes on your local copy have been saved they can be added to the staging area using ```Git -add```. And then commited using ```Git commit``` along with your message, meaning they will be saved as a version of the repository which is then ready to be pushed, using ```Git push```, up to the online copy of your repository.
-<br><br>
-
-
-## **Credits**
+## Credits
 ### Website resources:
 - Photos - photos were downloaded from Shutter Stock - https://www.shutterstock.com/
 - Icons- icons were downloaded from the Font Awesome website - 
@@ -496,6 +530,6 @@ Thank you, Code Institute team, for your invaluable help and support throughout 
 
 I'm thankful to my mentor, Yulia Konovalova, for her invaluable guidance and support. Thank you, Yulia!
 
-I'm grateful to my wife, Margarita, for her support and feedback on the website's visuals, which made it more user-friendly and appealing. Thank you, Margarita!
+I'm grateful to my wife, Margarita, for her support and feedback on the website's visuals, which made it more user-friendly and appealing. Thank you, Margarita! Love you!!!
 
-I'm grateful to my mother, Galina, for providing mental support, beliefs and childcare for our children during development period - You're my star!!! Love you!!!!
+I'm grateful to my mother, Galina, for providing mental support, beliefs and childcare for our children during development period - You're our Star!!! Love you!!!!
