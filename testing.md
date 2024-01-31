@@ -2,9 +2,28 @@
 
 [Wild Swimming link to the website](https://flask-wild-swimming-1dc7d2b9c0b6.herokuapp.com/home) 
 
+![Link to the screenshots file](static/images/mockup.png)
+
+# Table of Contents
+
+- [Project Testing](#project-testing)
+  - [Manual Testing](#manual-testing)
+    - [Login Page](#login-page)
+    - [Registration Page](#registration-page)
+  - [Validation checks](#validation-checks)
+    - [W3C HTML](#w3c-html)
+    - [CSS](#css)
+    - [Javascript Validation](#javascript-validation)
+    - [Python Validation](#python-validation)
+  - [Lighthouse validations](#lighthouse-validations)
+  - [Responsivness validations](#responsivness-validations)
+  - [User Story Testing](#user-story-testing)
+  - [Accessibility Evaluation Summary](#accessibility-evaluation-summary)
+
+
 ## Manual Testing
 
-Manual testing is crucial in software development, providing unique advantages that automated testing cannot. Human testers bring intuition, creativity, and adaptability, identifying user experience issues that may go unnoticed. Manual testing is particularly useful in exploratory testing and UI/UX evaluation. Combining manual and automated testing leads to high-quality products. 
+Manual testing is crucial in website development, providing unique advantages that automated testing cannot. Human testers bring intuition, creativity, and adaptability, identifying user experience issues that may go unnoticed. Manual testing is particularly useful in exploratory testing and UI/UX evaluation. Combining manual and automated testing leads to high-quality products. 
 Manual testing has been undertaken for the wild swimming website. Below is the summary of the steps and results.
 
 ### Home page
@@ -157,7 +176,7 @@ Manual testing has been undertaken for the wild swimming website. Below is the s
 ![Link to the screenshots file](static/images/w3c-html-4.png)
 
 ### CSS
-[W3C CSS Validator](https://jigsaw.w3.org/css-validator/) has been used to test Cascading Style Sheets. The website has no errors. The file that has been checked is [script.js](/static/css/style.csss).
+[W3C CSS Validator](https://jigsaw.w3.org/css-validator/) has been used to test Cascading Style Sheets. The website has no errors. The file that has been checked is [style.css](/static/css/style.css).
 <br>
 
 ![Link to the screenshots file](static/images/w3c-css.png)
@@ -173,3 +192,87 @@ Manual testing has been undertaken for the wild swimming website. Below is the s
 <br>
 
 ![Link to the screenshots file](static/images/ci_python_linter.png)
+
+## Lighthouse validations
+
+![Link to the screenshots file](static/images/lighthouse1.png)
+![Link to the screenshots file](static/images/lighthouse2.png)
+![Link to the screenshots file](static/images/lighthouse3.png)
+![Link to the screenshots file](static/images/lighthouse4.png)
+
+## Responsivness validations
+The objective of this responsiveness test was to evaluate the website's performance and user interface across two distinct screen sizes – 1300px and 320px. The goal was to ensure that the website provides an optimal user experience on both larger desktop screens and smaller mobile screens.
+
+Desktop (1300px):
+Used Chomre DevOps browser developer tools to simulate a mobile screen with a width of 1300px.
+Verified that all elements, including navigation menus, images, and text, are well-organized and proportionate.
+Confirmed that the website layout scales appropriately, and content remains readable without horizontal scrolling.
+Tested various pages, ensuring that all features and functionalities are accessible and perform as expected.
+
+Mobile (320px):
+Used Chomre DevOps browser developer tools to simulate a mobile screen with a width of 320px.
+Checked the responsiveness of the website by confirming that the layout adjusts gracefully to the smaller screen.
+Verified that navigation menus are accessible and user-friendly on mobile devices.
+Ensured that images are appropriately resized and that text remains legible without requiring zooming.
+Tested touch interactions, such as buttons and links, to ensure they respond effectively.
+Checked for any overlapping or cut-off content on smaller screen
+
+
+### Screen Size: 1300px
+
+| Website Page         | Home | Blog | Profile | Create Post | Edit Post (Form Check) | Login | Register |
+|----------------------|------|------|---------|-------------|-------------------------|-------|----------|
+| Text Clarity         | Ok   | Ok   | Ok      | Ok          | Ok                      | Ok    | Ok       |
+| Check Images Layout  | Ok   | Ok   | Ok      | Ok          | Ok                      | Ok    | Ok       |
+| Rendering            | Ok   | Ok   | Ok      | Ok          | Ok                      | Ok    | Ok       |
+
+### Screen Size: 320px
+
+| Website Page         | Home | Blog | Profile | Create Post | Edit Post (Form Check) | Login | Register |
+|----------------------|------|------|---------|-------------|-------------------------|-------|----------|
+| Text Clarity         | Ok   | Ok   | Ok      | Ok          | Ok                      | Ok    | Ok       |
+| Check Images Layout  | Ok   | Ok   | Ok      | Ok          | Ok                      | Ok    | Ok       |
+| Rendering            | Ok   | Ok   | Ok      | Ok          | Ok                      | Ok    | Ok       |
+
+
+### Some examples for test setup
+![Link to the screenshots file](static/images/1300px.png)
+<br>
+
+![Link to the screenshots file](static/images/320px.png)
+
+
+
+## User Story Testing
+As discussed in the [README Agile Development section](readme.md#AgileDevelopment), MVP focused on the Must-Have items only. Below is the test summary of all user stories. 
+<br>
+
+| User Story | Priority Label | Test | Comments |
+|------------|-----------------|------|----------|
+| As a first-time visitor, I want to see a list of available blogs on the platform to explore content. | Must-have | Pass | Site visitors can navigate to the blog page and see all available posts. The posts are displayed with the latest first. Search is added for users to filter posts. |
+| As a first-time visitor, I want to read full blog posts to understand their content and the topics covered. | Must-have | Pass | All blog posts are available for site visitors. The post contains the Title, main content, keywords, author details, and the date of the post. |
+| As a first-time visitor, If I find the platform interesting, I want an easy and intuitive process to register for an account. | Must-have | Pass | Users can access the registration page easily via the provided link, and the form guides them through creating an account with fields for username and password. |
+| As a first-time visitor, I want to learn about the concept of wild swimming and its significance within the community. | Should-have | N/A | Not applicable to the MVP |
+| As a first-time visitor, I want information about various wild swimming spots—such as rivers, lakes, or coastlines—and their suitability for swimming. | Should-have | N/A | Not applicable to the MVP |
+| As a first-time visitor, I need access to safety tips, guidelines, or resources related to wild swimming to ensure a secure and enjoyable experience. | Should-have | N/A | Not applicable to the MVP |
+| As a first-time visitor, I want to know how to connect with the wild swimming community - be it through forums, groups, or events - to learn more and interact with fellow enthusiasts. | Should-have | N/A | Not applicable to the MVP |
+| As a first-time visitor, provide resources like recommended gear, techniques, or articles specific to wild swimming for beginners. | Should-have | N/A | Not applicable to the MVP |
+| As a registered user, I want to engage in discussions, share experiences, or ask questions in forums or dedicated community spaces. | Should-have | N/A | Not applicable to the MVP |
+| As a registered user, I want to log into my account securely using my credentials. | Must-have | Pass | A dedicated login page prompts users to enter their credentials, username, and password. The system verifies the provided information, granting access upon successful authentication. In case of errors, appropriate messages guide users to correct their input. |
+| As a registered user, I want to create new blog posts, including adding text, images, and formatting the content. | Must-have | Pass | While the current implementation allows users to initiate the blog creation process, advanced features such as image uploading and text formatting are unavailable. These enhancements are planned for subsequent development cycles. Users can still compose and submit blog posts with text content, which is accepted for MVP. |
+| As a registered user, I want the ability to edit my existing blog posts to update or refine the content. | Must-have | Pass | Registered users can now modify their previously published blog posts to update and refine the content as needed. The implementation ensures an editing experience, enabling users to make text changes and add new information. |
+| As a registered user, I want the option to delete my blog posts that are no longer relevant or needed. | Must-have | Pass | Registered users now have the ability to delete their previously published blog posts when necessary. A warning prompt ensures users are informed before proceeding with the deletion. Upon confirmation, the specified blog post is permanently removed from their account, providing users with control over the content they have published on the platform. |
+| As a registered user, I want to see a list of the blog posts I've authored for easy access. | Must-have | Pass | All blog posts created by users appear together in the blog space along with others. However, only the posts authored by a particular user are visible on their profile page. It helps separate the global blog space from the personalized profile page, where users can view and manage their contributions exclusively. |
+| As a registered user, I want to securely log out of my account to ensure privacy and security. | Must-have | Pass | Registered users now have a secure logout functionality that allows them to terminate their active sessions, ensuring the protection of their privacy and enhancing overall account security. |
+| As a registered user, I want to engage in discussions, share experiences, or ask questions in forums or dedicated community spaces. | Should-have | N/A | Not applicable to the MVP |
+| As a registered user, I want the ability to create and promote events like group swims or meetups to gather fellow wild swimming enthusiasts. | Could-have | N/A | Not applicable to the MVP |
+| As a registered user, opportunity to connect with experienced swimmers or experts for advice or guidance on advanced techniques, safety measures, or environmental concerns. | Could-have | N/A | Not applicable to the MVP |
+| As an admin, I want to review, edit, or delete user-generated content (blog posts, comments) that violate community guidelines or are inappropriate. | Must-have | Ongoing | During the project discussion, it was decided to leave out the feature at the MVP stage and focus on delivering clean and error-free functionality. The feature is proposed to be delivered in future development cycles. |
+| As an admin, I want to create, update, and delete user accounts. | Should-have | N/A | Not applicable to the MVP |
+| As an admin, I want to disable or suspend user accounts for policy violations or inactivity. | Should-have | N/A | Not applicable to the MVP |
+| As an admin, I want access to a dashboard displaying key platform metrics, user statistics, and activity summaries. | Could-have | N/A | Not applicable to the MVP |
+
+## Accessibility Evaluation Summary
+The accessibility evaluation was conducted through the Wave tool, revealing one error and two alerts that are consistent across all pages. Notably, the materialized navigation bar, implemented in the base.html, is a common feature across all pages. The Wave tool identifies empty and redundant links within the navigation bar for the mobile device setup. Despite this, it has been deemed acceptable for the Minimum Viable Product (MVP).
+
+![Link to the screenshots file](static/images/wave.png)
